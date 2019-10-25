@@ -8,4 +8,10 @@ class Siswa extends CI_Controller {
     $data['menu']='siswa';
 		$this->load->view('admin/siswa/index', $data);
 	}
+
+	public function form()
+	{
+    $data['menu']='siswa';
+		$this->load->view('admin/siswa/form', $data);
+	}
 }

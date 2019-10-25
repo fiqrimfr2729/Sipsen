@@ -7,21 +7,24 @@
     <title>Sipsen</title>
 
     <!-- start: Css -->
-    <link rel="stylesheet" type="text/css" href="asset/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/bootstrap.min.css">
 
       <!-- plugins -->
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"/>
-      <link rel="stylesheet" type="text/css" href="asset/css/plugins/simple-line-icons.css"/>
-      <link rel="stylesheet" type="text/css" href="asset/css/plugins/animate.min.css"/>
-      <link rel="stylesheet" type="text/css" href="asset/css/plugins/fullcalendar.min.css"/>
-			<link rel="stylesheet" type="text/css" href="asset/css/plugins/mediaelementplayer.css"/>
-			<link rel="stylesheet" type="text/css" href="asset/css/plugins/datatables.bootstrap.min.css"/>
+      <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/simple-line-icons.css"/>
+      <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/animate.min.css"/>
+      <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/fullcalendar.min.css"/>
+			<link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/mediaelementplayer.css"/>
+			<link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/datatables.bootstrap.min.css"/>
+			<link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/nouislider.min.css"/>
+			<link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/ionrangeslider/ion.rangeSlider.css"/>
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/ionrangeslider/ion.rangeSlider.skinFlat.css"/>
 
 			<!-- <link rel="stylesheet" href="asset/fontawesome/css/font-awesome.min.css" /> -->
-	<link href="asset/css/style.css" rel="stylesheet">
+	<link href="<?php echo base_url(''); ?>asset/css/style.css" rel="stylesheet">
 	<!-- end: Css -->
 
-	<link rel="shortcut icon" href="asset/img/logomi.png">
+	<link rel="shortcut icon" href="<?php echo base_url(''); ?>asset/img/logomi.png">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
