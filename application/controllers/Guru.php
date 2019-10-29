@@ -8,4 +8,10 @@ class Guru extends CI_Controller {
     $data['menu']='guru';
 		$this->load->view('admin/guru/index', $data);
 	}
+
+	public function form()
+	{
+    $data['menu']='siswa';
+		$this->load->view('admin/guru/form', $data);
+	}
 }

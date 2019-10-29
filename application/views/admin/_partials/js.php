@@ -89,11 +89,10 @@
           minlength: 5,
           equalTo: "#validate_password"
         },
-        validate_email: {
-          required: true,
-          email: true
-        },
         validate_nis: {
+          required: true
+        },
+        validate_nisn: {
           required: true
         },
         validate_agree: "required"
@@ -114,8 +113,16 @@
           minlength: "Your password must be at least 5 characters long",
           equalTo: "Please enter the same password as above"
         },
-        validate_email: "Please enter a valid email address",
+        validate_email: "Silahkan masukan email",
         validate_nis: "Silahkan masukan NIS",
+        validate_nisn: "Silahkan masukan NISN",
+        no_hp: "Silahkan masukan nomor hp",
+        alamat: "Silahkan masukan alamat",
+        nama_ayah: "Silahkan masukan nama ayah",
+        nama_ibu: "Silahkan masukan nama ibu",
+        jk: "Silahkan pilih jenis kelamin",
+        nama_guru: "Silahkan masukan nama guru",
+        nuptk: "Silahkan masukan NUPTK",
         validate_agree: "Please accept our policy"
       }
     });

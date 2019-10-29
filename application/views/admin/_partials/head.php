@@ -1,10 +1,10 @@
 <head>
-	<meta charset="utf-8">
-	<meta name="description" content="Miminium Admin Template v.1">
-	<meta name="author" content="Isna Nur Azis">
-	<meta name="keyword" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sipsen</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Miminium Admin Template v.1">
+  <meta name="author" content="Isna Nur Azis">
+  <meta name="keyword" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sipsen</title>
 
     <!-- start: Css -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/bootstrap.min.css">
@@ -18,7 +18,7 @@
 			<link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/datatables.bootstrap.min.css"/>
 			<link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/nouislider.min.css"/>
 			<link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/ionrangeslider/ion.rangeSlider.css"/>
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/ionrangeslider/ion.rangeSlider.skinFlat.css"/>
+      <link rel="stylesheet" type="text/css" href="<?php echo base_url(''); ?>asset/css/plugins/ionrangeslider/ion.rangeSlider.skinFlat.css"/>
 
 			<!-- <link rel="stylesheet" href="asset/fontawesome/css/font-awesome.min.css" /> -->
 	<link href="<?php echo base_url(''); ?>asset/css/style.css" rel="stylesheet">

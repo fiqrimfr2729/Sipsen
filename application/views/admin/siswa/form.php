@@ -38,9 +38,15 @@
                         <div class="col-md-6">
 
                           <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                            <input type="text" class="form-text" id="validate_firstname" name="validate_firstname" required>
+                            <input type="text" class="form-text" id="validate_firstname" name="validate_firstname" required="">
                             <span class="bar"></span>
                             <label>Nama Lengkap</label>
+                          </div>
+
+                          <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                            <input type="text" class="form-text mask-number" id="validate_nisn" name="validate_nisn" required>
+                            <span class="bar"></span>
+                            <label>NISN</label>
                           </div>
 
                           <div class="form-group form-animate-text" style="margin-top:40px !important;">
@@ -50,7 +56,12 @@
                           </div>
 
                           <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                            <input type="text" class="form-text" id="" name="nama_ayah" required>
+                            <span class="bar"></span>
+                            <label>Nama Ayah</label>
+                          </div>
 
+                          <div class="form-group form-animate-text" style="margin-top:40px !important;">
                                   Pilih Jurusan
                                   <select class="form-control">
                                     <option>-Jurusan-</option>
@@ -88,9 +99,21 @@
                           </div>
 
                           <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                            <input type="text" class="form-text mask-phone" id="" name="" required>
+                            <input type="text" class="form-text mask-phone" id="" name="no_hp" required>
                             <span class="bar"></span>
                             <label>Nomor Hp</label>
+                          </div>
+
+                          <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                            <input type="text" class="form-text" id="" name="alamat" required>
+                            <span class="bar"></span>
+                            <label>Alamat</label>
+                          </div>
+
+                          <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                            <input type="text" class="form-text" id="" name="nama_ibu" required>
+                            <span class="bar"></span>
+                            <label>Nama Ibu</label>
                           </div>
 
                           <div class="form-group input-group form-animate-text" style="margin-top:60px !important;">
@@ -103,7 +126,7 @@
                           <div class="form-group form-animate-text" style="margin-top:50px !important;">
                               Jenis Kelamin
                                 <div class="" style="margin-top:10px;">
-                                  <input type="radio" name="jk"> Laki-laki
+                                  <input type="radio" name="jk" required> Laki-laki
                                   <input type="radio" name="jk"> Perempuan
                                 </div>
                           </div>
@@ -112,7 +135,6 @@
                             <input class="submit btn btn-danger" type="submit" value="Submit">
                       </div>
                     </form>
-
                   </div>
                 </div>
               </div>

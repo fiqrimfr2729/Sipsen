@@ -6,9 +6,9 @@
         <span class="middle"></span>
         <span class="bottom"></span>
       </div>
-        <a href="index.html" class="navbar-brand">
-         <b>SIPSEN</b>
-        </a>
+      <a href="index.html" class="navbar-brand">
+        <b>SIPSEN</b>
+      </a>
 
       <ul class="nav navbar-nav navbar-right user-nav">
         <li class="user-name"><span>Admin</span></li>
@@ -22,12 +22,12 @@
               <ul>
                 <li><a href=""><span class="fa fa-cogs"></span></a></li>
                 <li><a href=""><span class="fa fa-lock"></span></a></li>
-                <li><a href=""><span class="fa fa-power-off "></span></a></li>
+                <li><a href="Login/logout"><span class="fa fa-power-off "></span></a></li>
               </ul>
             </li>
           </ul>
         </li>
-        <li ><a href="#" class="opener-right-menu"><span class="fa fa-coffee"></span></a></li>
+        <li><a href="#" class="opener-right-menu"><span class="fa fa-coffee"></span></a></li>
       </ul>
     </div>
   </div>
