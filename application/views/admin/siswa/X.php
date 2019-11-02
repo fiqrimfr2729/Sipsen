@@ -4,7 +4,7 @@
         <h3> Kelas X</h3>
       </div>
       <div class="form-group" style="margin-top:10px; margin-left:10px;">
-        <button class="btn btn-raised btn-success"><i class="fas fa-plus"></i> Tambah data</button>
+        <button class="btn btn-raised btn-success" href="<?php echo base_url(''); ?>siswa/form" ><i class="fas fa-plus"></i> Tambah data</button>
         <button class="btn btn-raised btn-primary"><i class="fas fa-file-download"></i> Unduh .xlsx</button>
       </div>
       <div class="panel-body">

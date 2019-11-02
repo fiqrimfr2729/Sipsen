@@ -34,7 +34,7 @@
 					<img src="<?php echo base_url(); ?>asset/images/img-01.png" alt="IMG">
 				</div>
 
-				<form method="post" action="<?php echo base_url(); ?>Login/aksilogin" id="formLogin">
+				<form method="post" action="<?php echo base_url(); ?>Login" id="formLogin">
 					<span class="login100-form-title">
 						Member Login
 					</span>
@@ -91,7 +91,7 @@
 	</script>
 	<!--===============================================================================================-->
 	<script src="<?php echo base_url(); ?>asset/js/main.js"></script>
-	<script>
+	<script type="text/javascript">
 		$('#notifications').slideDown('slow').delay(3000).slideUp('slow');
 	</script>
 

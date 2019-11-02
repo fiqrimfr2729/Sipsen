@@ -21,14 +21,31 @@ class Login extends CI_Controller
 
 	public function aksilogin()
 	{
-		$this->form_validation->set_rules('username', 'Username', 'trim|required');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required');
+		//$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		//$this->form_validation->set_rules('password', 'Password', 'trim|required|numeric');
+
+		$this->form_validation->set_rules(
+			'username',
+			'Username',
+			'trim|required',
+			array('required' => 'Username tidak boleh kosong!!!')
+		);
+		$this->form_validation->set_rules(
+			'password',
+			'Password',
+			'trim|required|numeric',
+			array(
+				'numeric' => 'Password yang di inputkan harus berupa angka !!',
+				'required' => 'Password tidak boleh kosong !!!'
+			)
+		);
+
 		if ($this->form_validation->run() != false) {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
 			$where = array(
 				'username' => $username,
-				'password' => $password
+				'password' => md5($password)
 			);
 			$cek = $this->m_login->cek_login("tb_admin", $where)->num_rows();
 			if ($cek > 0) {
