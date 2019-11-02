@@ -19,37 +19,9 @@ class Siswa extends CI_Controller
 		$this->load->view('admin/siswa/index', $data);
 	}
 
-	public function tambah()
+	public function form()
 	{
-		$siswa = $this->m_siswa;
-		$validation = $this->form_validation;
-		$validation->set_rules($siswa->rules());
-
-		if ($validation->run()) {
-			$siswa->save();
-			$this->session->set_flashdata('success', 'Berhasil disimpan');
-		}
-
-		$this->load->view("admin/siswa/All");
-	}
-
-
-	public function edit($nis = null)
-	{
-		if (!isset($nis)) redirect('siswa');
-
-		$siswa = $this->m_siswa;
-		$validation = $this->form_validation;
-		$validation->set_rules($siswa->rules());
-
-		if ($validation->run()) {
-			$siswa->update();
-			$this->session->set_flashdata('success', 'Berhasil disimpan');
-		}
-
-		$data["nis"] = $siswa->getById($nis);
-		if (!$data["nis"]) show_404();
-
-		$this->load->view("admin/", $data);
+		$data['menu'] = 'siswa';
+		$this->load->view('admin/siswa/form', $data);
 	}
 }
