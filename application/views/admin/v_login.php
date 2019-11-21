@@ -34,10 +34,12 @@
 					<img src="<?php echo base_url(); ?>asset/images/img-01.png" alt="IMG">
 				</div>
 
-				<form method="post" action="<?php echo base_url(); ?>Login" id="formLogin">
+				<form method="post" action="<?php echo base_url(); ?>Login/aksilogin/" id="formLogin">
 					<span class="login100-form-title">
 						Member Login
 					</span>
+
+					<span><?php echo $this->session->flashdata('message'); ?> </span>
 
 					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="username" placeholder="Username">

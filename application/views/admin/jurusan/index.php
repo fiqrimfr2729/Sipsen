@@ -30,11 +30,10 @@
         <div class="col-md-12">
           <div class="panel">
             <div class="panel-heading">
-              <h3>Data Tables</h3>
+              <h3>Data Jurusan</h3>
             </div>
             <div class="form-group" style="margin-top:10px; margin-left:10px;">
               <button data-toggle="modal" data-target="#modalAddFormJurusan" class="btn btn-raised btn-success"><i class="fas fa-plus"></i> Tambah data</button>
-              <button class="btn btn-raised btn-primary"><i class="fas fa-file-download"></i> Unduh .xlsx</button>
             </div>
             <div class="panel-body">
               <div class="responsive-table">
@@ -49,9 +48,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($jurusan as $jurusans) : ?>
+                    <?php $i = 1;
+                    foreach ($jurusan as $jurusans) :  ?>
                       <tr>
-                        <td><?php echo $jurusans->id_jurusan; ?></td>
+                        <td><?php echo $i;
+                              $i++; ?></td>
                         <td><?php echo $jurusans->nama_jurusan; ?></td>
                         <td><?php echo $jurusans->singkatan; ?></td>
                         <td></td>
@@ -61,7 +62,6 @@
 
                       </tr>
                     <?php endforeach; ?>
-                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -167,6 +167,8 @@
       </div>
     </div>
   <?php endforeach; ?>
+
+  <!-- MODAL HAPUS DATA -->
 
   <?php foreach ($jurusan as $jurusans) : ?>
 

@@ -4,34 +4,6 @@ class M_jurusan extends CI_Model
 {
     private $_table = "tb_jurusan";
 
-    public $id_jurusan;
-    public $nama_jurusan;
-    public $singkatan;
-
-    public function rules()
-    {
-        return [
-            [
-                'field' => 'id_jurusan',
-                'label' => 'id_Jurusan',
-                'rules' => 'require'
-            ],
-
-            [
-                'field' => 'nama_jurusan',
-                'label' => 'nama_jurusan',
-                'rules' => 'require'
-            ],
-
-            [
-                'field' => 'singkatan',
-                'label' => 'singkatan',
-                'rules' => 'require'
-            ],
-
-        ];
-    }
-
     public function getAll()
     {
         return $this->db->get($this->_table)->result();

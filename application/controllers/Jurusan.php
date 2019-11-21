@@ -18,20 +18,6 @@ class Jurusan extends CI_Controller
 		$this->load->view('admin/jurusan/index', $data);
 	}
 
-	public function add()
-	{
-		$jurusan = $this->M_jurusan;
-		$validation = $this->form_validation;
-		$validation->set_rules($jurusan->rules());
-
-		if ($validation->run()) {
-			$jurusan->save();
-			$this->session->set_flashdata('success', 'Berhasil disimpan');
-		}
-
-		$this->load->view("admin/jurusan/index");
-	}
-
 	function edit()
 	{
 		$id_jurusan = $this->input->post('id_jurusan');

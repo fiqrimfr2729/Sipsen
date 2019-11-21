@@ -5,101 +5,31 @@ class M_siswa extends CI_Model
 
     private $_table = "tb_siswa";
 
-    public $nis;
-    public $nisn;
-    public $nama;
-    public $id_kelas;
-    public $tgl_lahir;
-    public $no_hp;
-    public $email;
-    public $alamat;
-    public $nama_ayah;
-    public $nama_ibu;
-    public $id_wali;
-    public $id_fp;
-    public $password;
-
-    public function rules()
-    {
-        return [
-            [
-                'field' => 'nis',
-                'label' => 'NIS',
-                'rules' => 'require'
-            ],
-
-            [
-                'field' => 'nisn',
-                'label' => 'NISN',
-                'rules' => 'require'
-            ],
-
-            [
-                'field' => 'nama',
-                'label' => 'Nama',
-                'rules' => 'require'
-            ],
-
-        ];
-    }
-
     public function getAll()
     {
         return $this->db->get($this->_table)->result();
     }
 
-    public function getByNis($nis)
+    public function getByTingkat($tingkat)
     {
-        return $this->db->get_where($this->_table, ["NIS" => $nis])->row();
+        return $this->db->get_where($this->_table, ["tingkat" => $tingkat]->row());
     }
 
-    public function getById_Kelas($id_kelas)
+    public function simpan($id_kelas, $id_jurusan, $tingkat, $nama)
     {
-        return $this->db->get_where($this->_table, ["id_kelas" => $id_kelas])->row();
+        $hasil = $this->db->query("INSERT INTO tb_kelas (id_kelas,id_jurusan,tingkat,nama) VALUES ('$id_kelas','$id_jurusan','$tingkat','$nama')");
+        return $hasil;
     }
 
-    public function save()
+    function edit($id_kelas, $id_jurusan, $tingkat, $nama)
     {
-        $post = $this->input->post();
-        $this->NIS = $_POST["nis"];
-        $this->NISN = $_POST["nisn"];
-        $this->nama = $_POST["nama"];
-        $this->jk = $_POST["jk"];
-        $this->id_kelas = $_POST["id_kelas"];
-        $this->tgl_lahir = $_POST["tgl_lahir"];
-        $this->no_hp = $_POST["no_hp"];
-        $this->email = $_POST["email"];
-        $this->alamat = $_POST["alamat"];
-        $this->nama_ayah = $_POST["nama_ayah"];
-        $this->nama_ibu = $_POST["nama_ibu"];
-        $this->id_wali = $_POST["id_wali"];
-        $this->id_fp = $_POST["id_fp"];
-        $this->password = $_POST["password"];
-        $this->db->insert($this->_table, $this);
+        $hasil = $this->db->query("UPDATE tb_kelas SET id_jurusan='$id_jurusan',tingkat='$tingkat',nama='$nama' WHERE id_kelas='$id_kelas'");
+        return $hasil;
     }
 
-    public function update()
+    public function delete($id_kelas)
     {
-        $post = $this->input->post();
-        $this->NIS = $_POST["nis"];
-        $this->NISN = $_POST["nisn"];
-        $this->nama = $_POST["nama"];
-        $this->jk = $_POST["jk"];
-        $this->id_kelas = $_POST["id_kelas"];
-        $this->tgl_lahir = $_POST["tgl_lahir"];
-        $this->no_hp = $_POST["no_hp"];
-        $this->email = $_POST["email"];
-        $this->alamat = $_POST["alamat"];
-        $this->nama_ayah = $_POST["nama_ayah"];
-        $this->nama_ibu = $_POST["nama_ibu"];
-        $this->id_wali = $_POST["id_wali"];
-        $this->id_fp = $_POST["id_fp"];
-        $this->password = $_POST["password"];
-        $this->db->insert($this->_table, $this, array('nis' => $post['nis']));
-    }
-
-    public function delete($nis)
-    {
-        return $this->db->delete($this->_table, array("nis" => $nis));
+        $hasil = $this->db->query("DELETE FROM tb_kelas WHERE id_jurusan='$id_kelas'");
+        return $hasil;
     }
 }
