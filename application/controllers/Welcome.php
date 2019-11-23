@@ -18,4 +18,15 @@ class Welcome extends CI_Controller
 		$data['menu'] = 'dashboard';
 		$this->load->view('admin/overview', $data);
 	}
+
+	public function tambahLibur(){
+		$date = date('Y:m:d');
+		$keterangan = 'libur pahlawan';
+		$data =  array(
+			'tanggal' => $date,
+			'keterangan' => $keterangan
+		);
+
+		$this->db->insert('tb_libur', $data);
+	}
 }
