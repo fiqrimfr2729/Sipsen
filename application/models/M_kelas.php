@@ -38,15 +38,23 @@ class M_kelas extends CI_Model
         //return $hasil;
     }
 
-    function edit($id_kelas, $id_jurusan, $tingkat, $nama)
+    function edit($id_kelas, $tingkat, $kd_alat)
     {
-        $hasil = $this->db->query("UPDATE tb_kelas SET id_jurusan='$id_jurusan',tingkat='$tingkat',nama='$nama' WHERE id_jurusan='$id_kelas'");
-        return $hasil;
+        $this->db->set('tingkat', $tingkat);
+        $this->db->set('kd_alat', $kd_alat);
+        $this->db->where('id_kelas', $id_kelas);
+        $this->db->update('tb_kelas');
+
+
+        //$hasil = $this->db->query("UPDATE tb_kelas SET id_jurusan='$id_jurusan',tingkat='$tingkat',nama='$nama' WHERE id_jurusan='$id_kelas'");
+        //return $hasil;
     }
 
     public function delete($id_kelas)
     {
-        $hasil = $this->db->query("DELETE FROM tb_kelas WHERE id_kelas='$id_kelas'");
-        return $hasil;
+
+        $this->db->delete('tb_kelas', array('id_kelas' => $id_kelas));
+        //$hasil = $this->db->query("DELETE FROM tb_kelas WHERE id_kelas='$id_kelas'");
+        //return $hasil;
     }
 }

@@ -193,13 +193,13 @@
 
               <div class="form-group">
                 <label for="Nama Jurusan">Id Kelas</label>
-                <input name="id_jurusan" value="<?php echo $kelass->id_kelas; ?>" class="form-control" type="text" placeholder="<?php echo $kelass->id_kelas; ?>" readonly>
+                <input name="id_kelas" value="<?php echo $kelass->id_kelas; ?>" class="form-control" type="text" placeholder="<?php echo $kelass->id_kelas; ?>" readonly>
               </div>
 
               <div class="form-group">
                 <label for="Nama Jurusan">Tingkat</label>
                 <span id="pesan" class="error"></span></p>
-                <input type="text" class="form-control" id="id_jurusan" name="id_jurusan" placeholder="<?php echo $kelass->tingkat ?>" required />
+                <input type="text" class="form-control" id="tingkat" name="tingkat" placeholder="<?php echo $kelass->tingkat ?>" required />
               </div>
               <div class="form-group">
                 <label for="Nama Kategori">Kode Alat</label>

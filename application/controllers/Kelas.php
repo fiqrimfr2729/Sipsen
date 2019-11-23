@@ -23,10 +23,10 @@ class Kelas extends CI_Controller
 
 	function edit()
 	{
-
+		$id_kelas = $this->input->post('id_kelas');
 		$tingkat = $this->input->post('tingkat');
 		$kd_alat = $this->input->post('kd_alat');
-		$this->M_kelas->edit($tingkat, $kd_alat);
+		$this->M_kelas->edit($id_kelas, $tingkat, $kd_alat);
 		redirect('kelas');
 	}
 

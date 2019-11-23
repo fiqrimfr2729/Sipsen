@@ -23,7 +23,7 @@ class Guru extends CI_Controller
 		$this->load->view('admin/guru/form', $data);
 	}
 
-	function edit()
+	public function edit()
 	{
 		$NUPTK = $this->input->post('NUPTK');
 		$nama = $this->input->post('nama');
@@ -35,11 +35,11 @@ class Guru extends CI_Controller
 		$password = $this->input->post('password');
 		$token = $this->input->post('token');
 
-		$this->M_guru > edit($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk, $password, $token);
+		$this->M_guru->edit($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk, $password, $token);
 		redirect('guru');
 	}
 
-	function addJurusan()
+	function addGuru()
 	{
 		$NUPTK = $this->input->post('NUPTK');
 		$nama = $this->input->post('nama');
