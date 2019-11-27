@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="<?php echo base_url(); ?>asset/images/icons/favicon.ico" />
+	<link rel="icon" type="image/png" href="<?php echo base_url(); ?>asset/images/Logo-Sipsen.png" />
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>asset/vendor/bootstrap/css/bootstrap.min.css">
 	<!--===============================================================================================-->
@@ -31,10 +31,10 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="<?php echo base_url(); ?>asset/images/img-01.png" alt="IMG">
+					<img src="<?php echo base_url();  ?>asset/images/Logo-Sipsen.png" style="align-items: middle;margin-top: -136px;">
 				</div>
 
-				<form method="post" action="<?php echo base_url(); ?>Login/aksilogin" id="formLogin">
+				<form method="post" action="<?php echo base_url(); ?>Login/aksilogin" id="formLogin" style="margin-top: -79px;">
 					<span class="login100-form-title">
 						Member Login
 					</span>
@@ -91,7 +91,7 @@
 	</script>
 	<!--===============================================================================================-->
 	<script src="<?php echo base_url(); ?>asset/js/main.js"></script>
-	<script>
+	<script type="text/javascript">
 		$('#notifications').slideDown('slow').delay(3000).slideUp('slow');
 	</script>
 
