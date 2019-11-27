@@ -114,4 +114,49 @@ class Presensi extends REST_Controller {
 
   }
 
+  public function get_presensi_month_get(){
+    $nis = $this->get('nis');
+    $month = $this->get('month');
+
+    $presensi = $this->PresensiModel->getPresensiSiswaBulan('1705011', '2019-11');
+
+    $this->response([
+      'presensi' => $presensi], 200);
+  }
+
+  public function get_presensi_siswa_get(){
+    $nis = $this->get('nis');
+
+    $presensi = $this->PresensiModel->getPresensiSiswa($nis);
+
+    $hadir = Array();
+    $TH = Array();
+    $sakit = Array();
+    $izin = Array();
+    $kabur = Array();
+
+    foreach ($presensi as $value) {
+      if($value->id_jenis_presensi == '1' ){
+        $hadir[] = $value;
+      }else if($value->id_jenis_presensi == '2' ){
+        $TH[] = $value;
+      }else if($value->id_jenis_presensi == '3' ){
+        $kabur[] = $value;
+      }else if($value->id_jenis_presensi == '4' ){
+        $izin[] = $value;
+      }else if($value->id_jenis_presensi == '5' ){
+        $sakit[] = $value;
+      }
+    }
+
+    $this->response([
+      'presensi' => [
+        'hadir' => $hadir,
+        'TH' => $TH,
+        'kabur' => $kabur,
+        'izin' => $izin,
+        'sakit' => $sakit
+        ]], 200);
+  }
+
 }

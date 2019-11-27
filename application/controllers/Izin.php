@@ -12,4 +12,10 @@ class Izin extends CI_Controller {
     echo "berhasil";
   }
 
+  function getSiswaIzin(){
+    $siswa = $this->IzinModel->getSiswaIzin();
+
+    echo var_dump($siswa);
+  }
+
 }

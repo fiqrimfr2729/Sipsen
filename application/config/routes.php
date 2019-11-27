@@ -26,10 +26,16 @@ $route['api/logoutWali']     = 'api/logout/logout_wali';
 $route['api/izin']           = 'api/izin/izin_siswa';
 $route['api/getIzin']           = 'api/izin/getIzinByNIS';
 $route['api/deleteIzin']           = 'api/izin/deleteIzin';
+$route['api/editIzin']           = 'api/izin/editIzin';
+$route['api/getSiswaIzin']           = 'api/izin/getSiswaIzin';
 
-//presensi
+//API presensi
 $route['api/presensi'] = 'api/presensi/presensi_siswa_masuk';
 $route['api/presensiHariIni'] = 'api/presensi/presensi_hari_ini';
+$route['api/getPresensiBulan'] = 'api/presensi/get_presensi_month';
+$route['api/getPresensiSiswa'] = 'api/presensi/get_presensi_siswa';
+
+
 $route['presensiTidakHadir'] = 'presensi/insertSiswaTidakHadir';
 $route['presensiKabur'] = 'presensi/insertSiswaKabur';
 

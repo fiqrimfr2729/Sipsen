@@ -38,11 +38,11 @@ class Izin extends REST_Controller {
     $jenis_izin = $this->post('jenis_izin');
     $keterangan = $this->post('keterangan');
 
-    $cek = $this->IzinModel->getIzinByTanggal($nis);
+    $cek = $this->IzinModel->checkIzinSiswa($nis);
     if($cek){
       $this->response([
-        'values' => 1,
-        'Message' => 'Anda sudah mengajukan izin hari ini'], 200);
+        'value' => 0,
+        'message' => 'Maaf, anda sudah mengajukan izin hari ini'], 200);
     }
 
     $upload = $this->do_upload();
@@ -58,12 +58,12 @@ class Izin extends REST_Controller {
       $this->IzinModel->insertIzin($izin);
 
       $this->response([
-        'values' => 1,
-        'Message' => 'Berhasil'], 200);
+        'value' => 1,
+        'message' => 'Berhasil'], 200);
     }else{
       $this->response([
-        'values' => 0,
-        'Message' => 'Gagal'], 200);
+        'value' => 0,
+        'message' => 'Gagal'], 200);
     }
   }
 
@@ -84,13 +84,51 @@ class Izin extends REST_Controller {
 
     if($izin){
       $this->response([
-        'values' => 1,
-        'Message' => 'Anda sudah mengajukan izin hari ini'], 200);
+        'value' => 1,
+        'message' => 'Anda sudah mengajukan izin hari ini'], 200);
     }else{
       $this->response([
-        'values' => 0,
-        'Message' => 'Belum mengajukan izin'], 200);
+        'value' => 0,
+        'message' => 'Belum mengajukan izin'], 200);
     }
+  }
+
+  public function editIzin_post(){
+    $id_izin = $this->post('id_izin');
+    $jenis_izin = $this->post('jenis_izin');
+    $keterangan = $this->post('keterangan');
+
+    $data = array();
+    $bukti = $this->do_upload();
+    if($bukti != false){
+      if(!$bukti){
+        $this->response([
+          'value' => 0,
+          'message' => 'Gagal'], 200);
+      }
+
+      $data = array(
+      'jenis_izin' => $jenis_izin,
+      'keterangan' => $keterangan,
+      'bukti' => $bukti);
+    }else{
+      $data = array(
+      'jenis_izin' => $jenis_izin,
+      'keterangan' => $keterangan);
+    }
+
+    $edit = $this->IzinModel->editIzin($id_izin, $jenis_izin, $keterangan, $bukti);
+
+    if($edit){
+      $this->response([
+        'value' => 1,
+        'message' => 'Berhasil'], 200);
+    }else{
+      $this->response([
+        'value' => 0,
+        'message' => 'Gagal'], 200);
+    }
+
   }
 
   public function deleteIzin_post(){
@@ -99,8 +137,17 @@ class Izin extends REST_Controller {
 
     if($izin){
       $this->response([
-        'values' => 1,
-        'Message' => 'Berhasil'], 200);
+        'value' => 1,
+        'message' => 'Berhasil'], 200);
     }
   }
+
+  public function getSiswaIzin_get(){
+    $izin = $this->IzinModel->getSiswaIzin();
+
+    $this->response([
+      'izin' => $izin], 200);
+  }
+
+  
 }

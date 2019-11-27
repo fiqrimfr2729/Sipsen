@@ -47,10 +47,13 @@ class PresensiModel extends CI_Model {
     $this->db->from('tb_presensi');
     $presensi = $this->db->get()->result();
 
+    //array string
     $nis = array();
     foreach($presensi as $data){
       $nis[]=$data->NIS;
     }
+
+    //echo var_dump($nis);
     $siswaTidakHadir = $this->db->where_not_in('NIS', $nis)->from('tb_siswa')->get()->result();
 
     return $siswaTidakHadir;
@@ -67,7 +70,6 @@ class PresensiModel extends CI_Model {
       $nis[]=$data->NIS;
     }
     $siswaHadir = $this->db->where_in('NIS', $nis)->from('tb_siswa')->get()->result();
-
     return $siswaHadir;
   }
 
@@ -112,4 +114,22 @@ class PresensiModel extends CI_Model {
     $this->db->where('id_presensi', $id_presensi);
     $this->db->update('tb_presensi');
   }
+
+  //mengambil presensi siswa dari tb presensi berdasarkan nis
+  public function getPresensiSiswa($nis){
+    $presensi = $this->db->where('nis',$nis)->from('tb_presensi')->get()->result();
+
+    return $presensi;
+  }
+
+  //get presensi siswa pada berdasarkan bulan
+  public function getPresensiSiswaBulan($nis, $bulan){
+    //bulan = YYYY-MM
+
+    $this->db->where("DATE_FORMAT(tanggal,'%Y-%m')", $bulan)->where('nis', $nis)->from('tb_presensi');
+    $presensi = $this->db->get()->result();
+
+    return $presensi;
+  }
+
 }
