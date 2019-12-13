@@ -8,14 +8,16 @@ class Siswa extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model("M_siswa");
-		$this->load->library('form_validation');
+		$this->load->model("M_jurusan");
+		$this->load->model("M_kelas");
 	}
-
 
 	public function index()
 	{
 		$data['menu'] = 'siswa';
 		$data["siswa"] = $this->M_siswa->getAll();
+		//echo var_dump($data['jurusan']);
+
 		$this->load->view('admin/siswa/index', $data);
 	}
 
@@ -23,5 +25,53 @@ class Siswa extends CI_Controller
 	{
 		$data['menu'] = 'siswa';
 		$this->load->view('admin/siswa/form', $data);
+	}
+
+	//funcion meng edit data siswa
+	public function edit()
+	{
+		$NUPTK = $this->input->post('NUPTK');
+		$nama = $this->input->post('nama');
+		$alamat = $this->input->post('alamat');
+		$no_hp = $this->input->post('no_hp');
+		$email = $this->input->post('email');
+		$jk = $this->input->post('jk');
+		//$status_bk = $this->input->post('status_bk');
+		$status_bk = (isset($_POST['status_bk'])) ? 1 : 0;
+		//$password = $this->input->post('password');
+		//$token = $this->input->post('token');
+		$this->M_siswa->edit($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk);
+		redirect('guru');
+	}
+
+	//function menambah data siswa
+	function addSiswa()
+	{
+		$NIS = $this->input->post('NIS');
+		$NISN = $this->input->post('NISN');
+		$nama = $this->input->post('nama');
+		$jk = $this->input->post('jk');
+		$id_kelas = $this->input->post('id_kelas');
+		$tgl_lahir = $this->input->post('tgl_lahir');
+		//$status_bk = $this->input->post('status_bk');
+		//$status_bk = (isset($_POST['status_bk'])) ? 1 : 0;
+		$no_hp = $this->input->post('no_hp');
+		$email = $this->input->post('email');
+		$alamat = $this->input->post('alamat');
+		$nama_ayah = $this->input->post('nama_ayah');
+		$nama_ibu = $this->input->post('nama_ibu');
+		$id_fp = "0";
+		$password = "0";
+		//$passwordx = md5($password);
+		$this->M_siswa->simpan($NIS, $NISN, $nama, $jk, $id_kelas, $tgl_lahir, $no_hp, $email, $alamat, $nama_ayah, $nama_ibu, $id_fp, $password);
+		redirect('siswa');
+	}
+
+	//function untuk hapus value
+	public function delete($NIS = null)
+	{
+		$NIS = $this->input->post('NIS');
+		$this->M_siswa->delete($NIS);
+		redirect('siswa');
 	}
 }

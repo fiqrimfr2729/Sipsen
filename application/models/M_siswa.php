@@ -7,29 +7,79 @@ class M_siswa extends CI_Model
 
     public function getAll()
     {
-        return $this->db->get($this->_table)->result();
+        $siswa = $this->db->get($this->_table)->result();
+        foreach ($siswa as $siswas) {
+            $siswas->id_kelas = $this->getIdKelas($siswas->id_kelas);
+        }
+        return $siswa;
     }
 
-    public function getByTingkat($tingkat)
+    public function getIdKelas($id_kelas)
     {
-        return $this->db->get_where($this->_table, ["tingkat" => $tingkat]->row());
+        $kelas = $this->db->where('id_kelas', $id_kelas)->from('tb_kelas')->get()->row();
+        $jurusan = $this->db->where('id_jurusan', $kelas->id_jurusan)->from('tb_jurusan')->get()->row();
+        $kelas->jurusan = $jurusan;
+        return $kelas;
     }
 
-    public function simpan($id_kelas, $id_jurusan, $tingkat, $nama)
+    public function simpan($NIS, $NISN, $nama, $jk, $id_kelas, $tgl_lahir, $no_hp, $email, $alamat, $nama_ayah, $nama_ibu, $id_fp, $password)
     {
-        $hasil = $this->db->query("INSERT INTO tb_kelas (id_kelas,id_jurusan,tingkat,nama) VALUES ('$id_kelas','$id_jurusan','$tingkat','$nama')");
-        return $hasil;
+        $data = array(
+            'NIS' => $NIS,
+            'NISN' => $NISN,
+            'nama' => $nama,
+            'jk' => $jk,
+            'id_kelas' => $id_kelas,
+            'tgl_lahir' => $tgl_lahir,
+            'no_hp' => $no_hp,
+            'email' => $email,
+            'alamat' => $alamat,
+            'nama_ayah' => $nama_ayah,
+            'nama_ibu' => $nama_ibu,
+            'password' => $password,
+            'id_fp' => $id_fp
+
+        );
+
+        $this->db->insert('tb_siswa', $data);
+        return true;
+
+        //$hasil = $this->db->query("INSERT INTO tb_guru (NUPTK,nama,alamat,no_hp,email,jk,status_bk,password,token) VALUES ('$NUPTK','$nama','$alamat','$no_hp','$email','$jk','$status_bk','$password','$token')");
+        //return $hasil;
     }
 
-    function edit($id_kelas, $id_jurusan, $tingkat, $nama)
+    function edit($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk)
     {
-        $hasil = $this->db->query("UPDATE tb_kelas SET id_jurusan='$id_jurusan',tingkat='$tingkat',nama='$nama' WHERE id_kelas='$id_kelas'");
-        return $hasil;
+        $this->db->set('nama', $nama);
+        $this->db->set('alamat', $alamat);
+        $this->db->set('no_hp', $no_hp);
+        $this->db->set('email', $email);
+        $this->db->set('jk', $jk);
+        $this->db->set('status_bk', $status_bk);
+        $this->db->where('NUPTK', $NUPTK);
+        $this->db->update('tb_guru');
+
+        //$hasil = $this->db->query("UPDATE tb_guru SET nama='$nama',alamat='$alamat',no_hp='$no_hp',email='$email',jk='$jk',status_bk='$status_bk',password='$password',token='$token' WHERE NUPTK='$NUPTK'");
+        //return $hasil;
     }
 
-    public function delete($id_kelas)
+    public function delete($NIS)
     {
-        $hasil = $this->db->query("DELETE FROM tb_kelas WHERE id_jurusan='$id_kelas'");
-        return $hasil;
+        $this->db->delete('tb_siswa', array('NIS' => $NIS));
+        //return $hasil;
+    }
+
+    public function tambahBK($NUPTK, $status_bk)
+    {
+        $this->db->set('status_bk', $status_bk);
+        $this->db->where('NUPTK', $NUPTK);
+        $this->db->update('tb_guru');
+    }
+
+    public function resetPeWD($NUPTK, $password)
+    {
+        $this->db->set('password', $password);
+        $this->db->where('NUPTK', $NUPTK);
+        $this->db->update('tb_guru');
     }
 }

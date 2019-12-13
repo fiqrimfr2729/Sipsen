@@ -17,6 +17,7 @@ class Kelas extends CI_Controller
 		$data['jurusan'] = $this->M_jurusan->getAll();
 		$data['kelas'] = $this->M_kelas->getAll();
 
+
 		//echo var_dump($data['kelas']);
 		$this->load->view('admin/kelas/index', $data);
 	}

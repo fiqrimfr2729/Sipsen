@@ -15,12 +15,31 @@ class M_kelas extends CI_Model
         return $kelas;
     }
 
+    public function getAllKelas()
+    {
+        $kelas = $this->db->get($this->_table)->result();
+        return $kelas;
+    }
+
     public function getJurusanId($id_jurusan)
     {
 
         return $this->db->where('id_jurusan', $id_jurusan)->from('tb_jurusan')->get()->row();
     }
 
+    public function getNamaKelas()
+    {
+        $this->db->select('id_kelas, tingkat, nama, singkatan');
+        $this->db->from('tb_kelas');
+        $this->db->join('tb_jurusan', 'tb_kelas.id_jurusan = tb_jurusan.id_jurusan');
+        $data = $this->db->get()->result();
+
+        foreach ($data as $kelas) {
+            $kelas->kelas = $kelas->tingkat . ' ' . $kelas->singkatan . ' ' . $kelas->nama;
+        }
+
+        return $data;
+    }
 
 
     public function simpan($id_jurusan, $tingkat, $nama, $kd_alat)
