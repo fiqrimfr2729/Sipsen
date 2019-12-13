@@ -132,4 +132,37 @@ class PresensiModel extends CI_Model {
     return $presensi;
   }
 
+  public function getPresensiByKelas($idKelas, $date){
+    $this->db->select('tb_siswa.NIS, id_presensi, id_jenis_presensi, tanggal, nama_siswa, id_kelas, masuk, keluar, keterlambatan');
+    $this->db->where('id_kelas', $idKelas);
+    $this->db->where('tanggal', $date);
+    $this->db->from('tb_presensi');
+
+    $this->db->join('tb_siswa', 'tb_siswa.NIS = tb_presensi.NIS');
+    $presensi = $this->db->get()->result();
+
+    return $presensi;
+  }
+
+  public function getLaporanPresensiKelas($nis, $month, $idJenisPresensi){
+    $this->db->where('tb_presensi.NIS', $nis);
+    $this->db->where('id_jenis_presensi', $idJenisPresensi);
+
+
+    if($month >= 1 && $month <=6){
+      $data = array('01', '02', '03', '04', '05', '06');
+      $this->db->where_in("DATE_FORMAT(tanggal,'%m') ", $data);
+    }else{
+      $data = array('07', '08', '09', '10', '11', '12');
+      $this->db->where_in("DATE_FORMAT(tanggal,'%m') ", $data);
+    }
+
+    $this->db->from('tb_presensi');
+    $this->db->join('tb_siswa', 'tb_siswa.NIS = tb_presensi.NIS');
+    $this->db->order_by('tanggal', 'asc');
+    $query = $this->db->get()->num_rows();
+
+    return $query;
+  }
+
 }

@@ -57,4 +57,26 @@ class M_kelas extends CI_Model
         //$hasil = $this->db->query("DELETE FROM tb_kelas WHERE id_kelas='$id_kelas'");
         //return $hasil;
     }
+
+    public function getNamaKelasByID($id_kelas){
+      $kelas = $this->db->select('tingkat, nama, singkatan')->where('id_kelas', $id_kelas)
+                ->from('tb_kelas')
+                ->join('tb_jurusan', 'tb_kelas.id_jurusan = tb_jurusan.id_jurusan')
+                ->get()->row();
+      $data = $kelas->tingkat . ' ' . $kelas->singkatan . ' ' . $kelas->nama;
+      return $data;
+    }
+
+    public function getNamaKelas(){
+      $this->db->select('id_kelas, tingkat, nama, singkatan');
+      $this->db->from('tb_kelas');
+      $this->db->join('tb_jurusan', 'tb_kelas.id_jurusan = tb_jurusan.id_jurusan');
+      $data = $this->db->get()->result();
+
+      foreach ($data as $kelas) {
+        $kelas->kelas = $kelas->tingkat . ' ' . $kelas->singkatan . ' ' . $kelas->nama;
+      }
+
+      return $data;
+    }
 }

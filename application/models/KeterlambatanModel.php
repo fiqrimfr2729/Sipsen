@@ -23,6 +23,6 @@ class KeterlambatanModel extends CI_Model {
 
     $menit = floor(($diff - $jam * (60 * 60))/60);
 
-    return $diff;
+    return floor($diff/60);
   }
 }

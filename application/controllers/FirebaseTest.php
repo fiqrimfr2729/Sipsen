@@ -19,7 +19,7 @@ class FirebaseTest extends CI_Controller {
 
 		$messaging = $factory->createMessaging();
 
-		$deviceToken = 'e2AAPiJdFC8:APA91bH7vA4xiavgBVXOzb1oaJQOVfk4JiILuv2JbYyB-HNcz3bpPqpCPolzC-GSyA6brDz9WX-cWEbfnpGP2EQBNjPxj2C8wEYDyFUdsH5vWyrpyrjXH0TwRJdd9DC877F9QuFBtLSD';
+		$deviceToken = 'dyKhstp_OHE:APA91bEqt3P_vgtmV4hauNLyMkCQLEo3W8XMpZZNg3cUHE3V_E7Pua0ObWjkgK6b05wuKsc_954W64PqPUhyeHiksHu04czPg8Zz16S2hmD9LUkfFEfHNjBNAuzIVcqaLswxbszOfsae';
 		$message = CloudMessage::withTarget('token', $deviceToken)
     ->withNotification(Notification::create('Informasi kehadiran hari ini', 'Fiqri belum melakukan scan fingerprint'));
 

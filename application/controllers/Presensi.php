@@ -10,15 +10,24 @@ class Presensi extends CI_Controller{
         $this->load->model('WaliModel');
         $this->load->model('LiburModel');
         $this->load->model('AntrianSiswaModel');
+        $this->load->model('JamModel');
   }
 
   function insertSiswaTidakHadir(){
     date_default_timezone_set("Asia/Jakarta");
+    $jam_sekarang = strtotime(date('H:i:s'));
+    $jam_masuk = strtotime($this->JamModel->getJamMasuk());
+    $jam = floor(($jam_masuk+1800)/60) - floor($jam_sekarang/60);
+    echo $jam;
+
+    if($jam != 0){
+      return 0;
+    }
+
     $tanggal = date('Y:m:d');
     //token siswa yang tidak hadir
     $token = array();
     $dataWali = array();
-
     $libur=$this->LiburModel->getLibur();
 
     if($libur != null){
@@ -52,7 +61,7 @@ class Presensi extends CI_Controller{
       }
     }
 
-    //mengirim notifikasi pada siswa yang tidak hadir
+    // mengirim notifikasi pada siswa yang tidak hadir
     if(sizeof($token) !=0){
       $judul = 'Informasi kehadiran';
       $isi = 'Mabal Troooozzzz :)';
@@ -67,13 +76,24 @@ class Presensi extends CI_Controller{
   }
 
   public function notifPresensi(){
+    date_default_timezone_set("Asia/Jakarta");
+    $message;
+    $messageWali;
     $antrian = $this->AntrianSiswaModel->getAntrianSiswa();
     if(sizeof($antrian) == 0){
-      return false;
+      return 0;
     }
 
     $tokenSiswa = array();
     $tokenWali = array();
+
+    $jam_pulang = strtotime($this->JamModel->getJamPulang()->jam_pulang);
+    $time = strtotime(date('H:i:s'));
+    if($jam_pulang-$time >= 0){
+      $message = "Selamat Datang di Sekolah";
+    }else{
+      $message = "Sampai jumpa, Jangan lupa mengerjakan PR :)";
+    }
 
     foreach ($antrian as $siswa) {
       if($siswa->token != null){
@@ -86,8 +106,8 @@ class Presensi extends CI_Controller{
           $nama = $siswa->nama_siswa;
           $data = [
             'token' => $wali->token,
-            'judul' => 'Informasi kehadiran',
-            'isi' => "$nama sudah berada dilingkungan sekolah"
+            'judul' => 'Informasi kehadiran siswa',
+            'isi' => "$nama sudah sudah melakukan pemindaian sidik jari"
           ];
           $tokenWali[] = $data;
         }
@@ -95,15 +115,15 @@ class Presensi extends CI_Controller{
     }
 
     if(sizeof($tokenSiswa) !=0){
-      $judul = 'Informasi kehadiran';
-      $isi = 'Selamat Datang di Sekolah';
-      $this->NotifikasiModel->notifMultipleSiswa($tokenSiswa,$judul, $isi);
+      $judul = 'SMK PGRI PLUMBON';
+      $isi = $message;
+      $this->NotifikasiModel->notifMultipleSiswa($tokenSiswa, $judul, $isi);
     }
 
     if(sizeof($tokenWali) != 0){
       $this->NotifikasiModel->notifMultipleWali($tokenWali);
     }
-    echo "berhasil";
+    echo var_dump($jam_pulang-$time);
   }
 
   function insertSiswaKabur(){

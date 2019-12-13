@@ -16,6 +16,7 @@ class Presensi extends REST_Controller {
         $this->load->model('LiburModel');
         $this->load->model('SiswaModel');
         $this->load->model('AntrianSiswaModel');
+        $this->load->model('M_kelas');
         $this->load->library('form_validation');
     }
 
@@ -31,7 +32,6 @@ class Presensi extends REST_Controller {
     //get user berdasarkan kode alat dan id fingerprint
     $siswa = $this->PresensiModel->getSiswa($id_fp, $kd_alat);
 
-
     if($siswa == null){
       $this->response([
           'atas' => 'Sidik jari',
@@ -46,7 +46,7 @@ class Presensi extends REST_Controller {
     $jam_sekarang_str = date('H:i:s');
     $jam_sekarang = strtotime($jam_sekarang_str);
     $jam_pulang = $this->db->get('tb_jam')->row()->jam_pulang;
-    $jam_pulang = strtotime($jam_pulang);//mengubah variabel menjadi int
+    $jam_pulang = strtotime($jam_pulang);//mengubah tanggal menjadi int
 
     //mengecek apakah sudah melakukan presensi sebelumnya
     $presensi = $this->PresensiModel->cekPresensiTanggal($siswa->NIS, $date);
@@ -55,6 +55,7 @@ class Presensi extends REST_Controller {
       if($presensi == null){
         //menghitung waktu keterlambatan
         $keterlambatan = $this->KeterlambatanModel->getKeterlambatanMasuk();
+        //insert presensi
         $this->PresensiModel->presensiSiswa($siswa->NIS, 1, $date, $jam_sekarang_str, $keterlambatan);
         $this->AntrianSiswaModel->insertToAntrian($nis);
         $this->response([
@@ -65,8 +66,9 @@ class Presensi extends REST_Controller {
 
     }else if($jam_pulang <= $jam_sekarang || $jam_sekarang >= $jam_pulang+1800){
       if($presensi != null){
-        if($presensi->keluar == '00:00:00'){
+        if($presensi->id_jenis_presensi != 2){
           $this->PresensiModel->presensiSiswaKeluar($presensi->id_presensi, $jam_sekarang_str);
+          $this->AntrianSiswaModel->insertToAntrian($nis);
           $this->response([
               'atas' => 'Keluar, NIS:',
               'bawah' => "$nis"
@@ -97,10 +99,12 @@ class Presensi extends REST_Controller {
     }
 
     $presensi=$this->PresensiModel->getPresensiHariIni($nis);
+    $siswa = $this->SiswaModel->getSiswaByNIS2($nis);
     if($presensi == null){
       $this->response([
         'libur'=> null,
-        'presensi' => null
+        'presensi' => null,
+        'siswa'  => $siswa
         ], 200);
     }
 
@@ -114,20 +118,21 @@ class Presensi extends REST_Controller {
 
   }
 
-  public function get_presensi_month_get(){
+  public function getPresensiBulan_get(){
     $nis = $this->get('nis');
-    $month = $this->get('month');
+    $month = $this->get('month'); // yyyy/mm
 
-    $presensi = $this->PresensiModel->getPresensiSiswaBulan('1705011', '2019-11');
+    $presensi = $this->PresensiModel->getPresensiSiswaBulan('1705011', 'month');
 
     $this->response([
       'presensi' => $presensi], 200);
   }
 
-  public function get_presensi_siswa_get(){
+  public function getPresensiSiswa_get(){
     $nis = $this->get('nis');
 
     $presensi = $this->PresensiModel->getPresensiSiswa($nis);
+    $siswa = $this->SiswaModel->getSiswaByNIS2($nis);
 
     $hadir = Array();
     $TH = Array();
@@ -156,7 +161,98 @@ class Presensi extends REST_Controller {
         'kabur' => $kabur,
         'izin' => $izin,
         'sakit' => $sakit
+      ],
+      'siswa' => $siswa], 200);
+  }
+
+  public function getPresensiByKelas_get(){
+    $idKelas = $this->get('id_kelas');
+    $date = date('Y:m:d');
+
+    $presensi = $this->PresensiModel->getPresensiByKelas($idKelas, $date);
+    $kelas = $this->M_kelas->getNamaKelasByID($idKelas);
+
+    $hadir = Array();
+    $TH = Array();
+    $sakit = Array();
+    $izin = Array();
+    $kabur = Array();
+
+    foreach ($presensi as $value) {
+      $data = Array(
+        'nama_siswa' => $value->nama_siswa,
+        'id_kelas' => $kelas,
+        'NIS' => $value->NIS
+      );
+      $value->siswa=$data;
+      unset($value->NIS);
+      unset($value->nama_siswa);
+      unset($value->id_kelas);
+
+      if($value->id_jenis_presensi == '1' ){
+        $hadir[] = $value;
+      }else if($value->id_jenis_presensi == '2' ){
+        $TH[] = $value;
+      }else if($value->id_jenis_presensi == '3' ){
+        $kabur[] = $value;
+      }else if($value->id_jenis_presensi == '4' ){
+        $izin[] = $value;
+      }else if($value->id_jenis_presensi == '5' ){
+        $sakit[] = $value;
+      }
+    }
+
+    $this->response([
+      'presensi' => [
+        'hadir' => $hadir,
+        'TH' => $TH,
+        'kabur' => $kabur,
+        'izin' => $izin,
+        'sakit' => $sakit
         ]], 200);
   }
+
+  public function getLaporanPresensiKelas_get(){
+    $idKelas = $this->get('id_kelas');
+    $month = date('m');
+
+    $siswa = $this->SiswaModel->getSiswaByKelas($idKelas);
+
+    foreach ($siswa as $value) {
+      $hadir = $this->PresensiModel->getLaporanPresensiKelas($value->NIS, $month, '1');
+      $th = $this->PresensiModel->getLaporanPresensiKelas($value->NIS, $month, '2');
+      $kabur = $this->PresensiModel->getLaporanPresensiKelas($value->NIS, $month, '3');
+      $izin = $this->PresensiModel->getLaporanPresensiKelas($value->NIS, $month, '4');
+      $sakit = $this->PresensiModel->getLaporanPresensiKelas($value->NIS, $month, '5');
+        $presensi=array(
+          'hadir' => $hadir,
+          'TH' => $th,
+          'kabur' => $kabur,
+          'izin' => $izin,
+          'sakit' => $sakit);
+        $value->presensi=$presensi;
+
+        $kelas = $this->M_kelas->getNamaKelasByID($value->id_kelas);
+        $value->kelas=$kelas;
+
+        unset($value->nama_ayah);
+        unset($value->nama_ibu);
+        unset($value->password);
+        unset($value->token);
+        unset($value->id_fp);
+        unset($value->id_wali);
+        unset($value->alamat);
+        unset($value->email);
+        unset($value->no_hp);
+        unset($value->tgl_lahir);
+        unset($value->jk);
+        unset($value->NISN);
+    }
+
+    $this->response([
+      'siswa' => $siswa], 200);
+  }
+
+
 
 }
