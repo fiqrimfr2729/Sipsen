@@ -31,11 +31,11 @@ class Guru extends CI_Controller
 		$no_hp = $this->input->post('no_hp');
 		$email = $this->input->post('email');
 		$jk = $this->input->post('jk');
-		$status_bk = $this->input->post('status_bk');
-		$password = $this->input->post('password');
-		$token = $this->input->post('token');
-
-		$this->M_guru->edit($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk, $password, $token);
+		//$status_bk = $this->input->post('status_bk');
+		$status_bk = (isset($_POST['status_bk'])) ? 1 : 0;
+		//$password = $this->input->post('password');
+		//$token = $this->input->post('token');
+		$this->M_guru->edit($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk);
 		redirect('guru');
 	}
 
@@ -47,10 +47,12 @@ class Guru extends CI_Controller
 		$no_hp = $this->input->post('no_hp');
 		$email = $this->input->post('email');
 		$jk = $this->input->post('jk');
-		$status_bk = $this->input->post('status_bk');
+		//$status_bk = $this->input->post('status_bk');
+		$status_bk = (isset($_POST['status_bk'])) ? 1 : 0;
 		$password = $this->input->post('password');
+		$passwordx = md5($password);
 		$token = $this->input->post('token');
-		$this->M_guru->simpan($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk, $password, $token);
+		$this->M_guru->simpan($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk, $passwordx, $token);
 		redirect('guru');
 	}
 
@@ -58,6 +60,15 @@ class Guru extends CI_Controller
 	{
 		$NUPTK = $this->input->post('NUPTK');
 		$this->M_guru->delete($NUPTK);
+		redirect('guru');
+	}
+
+	public function resetPWD()
+	{
+		$NUPTK = $this->input->post('NUPTK');
+		$password = "guru123";
+		$passwordx = md5($password);
+		$this->M_guru->resetPeWD($NUPTK, $passwordx);
 		redirect('guru');
 	}
 }

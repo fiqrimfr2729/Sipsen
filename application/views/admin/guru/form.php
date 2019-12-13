@@ -52,16 +52,15 @@
                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
                       Jenis Kelamin
                       <div class="" style="margin-top:5px;">
-                        <input type="radio" name="jk" required> Laki-laki
-                        <input type="radio" name="jk"> Perempuan
+                        <input type="radio" name="jk" value="1" required> Laki-laki
+                        <input type="radio" name="jk" value="0"> Perempuan
                       </div>
                     </div>
 
                     <div class="form-group form-animate-checkbox">
-                      <input type="checkbox" class="checkbox" id="" name="status_bk">
+                      <input type="checkbox" checked="checked" class="checkbox" id="status_bk" name="status_bk" value="1">
                       <label>Guru BK</label>
                     </div>
-
                   </div>
 
                   <div class="col-md-6">
@@ -69,6 +68,12 @@
                       <input type="text" class="form-text mask-number" id="" name="NUPTK" required>
                       <span class="bar"></span>
                       <label>NUPTK</label>
+                    </div>
+
+                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                      <input type="text" class="form-text" id="" name="password" required>
+                      <span class="bar"></span>
+                      <label>Password</label>
                     </div>
 
                     <div class="form-group form-animate-text" style="margin-top:40px !important;">

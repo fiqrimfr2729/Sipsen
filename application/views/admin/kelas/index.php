@@ -48,21 +48,26 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($kelas as $kelass) :  ?>
+                    <?php
+                    foreach ($kelas as $kelass) :
+                      ?>
                       <tr>
                         <td><?php echo $kelass->id_kelas; ?></td>
                         <td><?php echo $kelass->tingkat;
                               echo " ";
                               echo $kelass->id_jurusan->singkatan;
                               echo " ";
-                              echo $kelass->nama; ?></td>
+                              echo $kelass->nama;
+                              ?></td>
+
                         <td><?php echo $kelass->id_jurusan->nama_jurusan; ?></td>
                         <td><?php echo $kelass->kd_alat; ?></td>
                         <td><a data-target="#modalEditKelas<?php echo $kelass->id_kelas; ?>" data-toggle="modal" class=" btn  ripple-infinite btn-primary" data-placement="top" title="Ubah"><span class="fas fa-edit"></span></a>
                           <a data-target="#modalHapusKelas<?php echo $kelass->id_kelas; ?>" data-toggle="modal" class=" btn  ripple-infinite btn-danger" data-placement="top" title="Hapus"><span class="fas fa-trash"></span></a>
                         </td>
                       </tr>
-                    <?php endforeach; ?>
+                    <?php endforeach;
+                    ?>
                     </tr>
                   </tbody>
                 </table>

@@ -19,22 +19,25 @@
           </thead>
           <tbody>
             <?php $i = 1;
-            foreach ($guru as $gurus) :  ?>
-              <tr>
-                <td><?php echo $i;
-                      $i++; ?></td>
-                <td><?php echo $gurus->nama; ?></td>
-                <td><?php echo $gurus->NUPTK; ?></td>
-                <td><?php echo $gurus->email; ?></td>
-                <td><?php echo $gurus->no_hp; ?></td>
-                <td>
-                  <a data-target="#modalFormDetail<?php echo $gurus->NUPTK ?>" data-toggle="modal" class=" btn ripple-infinite btn-info" data-placement="top" title="Detail"><span class="fas fa-list"></span></a>
-                  <a data-target="#modalFormEdit<?php echo $gurus->NUPTK ?>" data-toggle="modal" class=" btn  ripple-infinite btn-primary" data-placement="top" title="Ubah"><span class="fas fa-edit"></span></a>
-                  <a data-target="#modalHapusGuru<?php echo $gurus->NUPTK ?>" data-toggle="modal" class=" btn  ripple-infinite btn-danger" data-placement="top" title="Hapus"><span class="fas fa-trash"></span></a>
-                </td>
-
-              </tr>
-            <?php endforeach; ?>
+            foreach ($guru as $gurus) :
+              if ($gurus->status_bk == "0") :
+                ?>
+                <tr>
+                  <td><?php echo $i;
+                          $i++; ?></td>
+                  <td><?php echo $gurus->nama; ?></td>
+                  <td><?php echo $gurus->NUPTK; ?></td>
+                  <td><?php echo $gurus->email; ?></td>
+                  <td><?php echo $gurus->no_hp; ?></td>
+                  <td>
+                    <a data-target="#modalFormDetail<?php echo $gurus->NUPTK ?>" data-toggle="modal" class=" btn ripple-infinite btn-info" data-placement="top" title="Detail"><span class="fas fa-list"></span></a>
+                    <a data-target="#modalFormEdit<?php echo $gurus->NUPTK ?>" data-toggle="modal" class=" btn  ripple-infinite btn-primary" data-placement="top" title="Ubah"><span class="fas fa-edit"></span></a>
+                    <a data-target="#modalResetPWD<?php echo $gurus->NUPTK ?>" data-toggle="modal" class=" btn  ripple-infinite btn-info" data-placement="top" title="Reset Password"><span class="fas fa-sync"></span></a>
+                    <a data-target="#modalHapusGuru<?php echo $gurus->NUPTK ?>" data-toggle="modal" class=" btn  ripple-infinite btn-danger" data-placement="top" title="Hapus"><span class="fas fa-trash"></span></a>
+                  </td>
+                </tr>
+            <?php endif;
+            endforeach; ?>
           </tbody>
         </table>
       </div>
@@ -132,31 +135,51 @@
         <div class="modal-body">
           <form action="<?php echo base_url() . 'guru/edit' ?>" method="post">
             <div class="form-group">
-              <label for="NUPTK">NUPTK : <input name="NUPTK" value="" class="form-control" type="text" placeholder="<?php echo $gurus->NUPTK; ?>" readonly></label>
+              <label for="NUPTK">NUPTK : <input name="NUPTK" value="<?php echo $gurus->NUPTK ?>" class="form-control" type="text" placeholder="<?php echo $gurus->NUPTK; ?>" readonly></label>
+
             </div>
             <div class="form-group">
-              <label for="Nama Jurusan">Nama : <input name="nama" value="" class="form-control" type="text" placeholder="<?php echo $gurus->nama; ?>" required></label>
+              <label for="Nama Jurusan">Nama : <input name="nama" value="<?php echo $gurus->nama; ?>" class="form-control" type="text" placeholder="" required></label>
             </div>
             <div class="form-group">
               <label for="Nama Kategori">Alamat :</label>
-              <input type="text" class="form-control" id="alamat" name="alamat" value="" placeholder="<?php echo $gurus->alamat; ?>" required />
+              <input type="text" class="form-control" id="alamat" name="alamat" value="<?php echo $gurus->alamat; ?>" placeholder="" required />
             </div>
             <div class="form-group">
               <label for="Nama Kategori">No Hp :</label>
-              <input type="text" class="form-control" id="alamat" name="no_hp" value="" placeholder="<?php echo $gurus->no_hp; ?>" required />
+              <input type="text" class="form-control" id="alamat" name="no_hp" value="<?php echo $gurus->no_hp; ?>" placeholder="" required />
             </div>
             <div class="form-group">
               <label for="Nama Kategori">Email :</label>
-              <input type="text" class="form-control" id="alamat" name="email" value="" placeholder="<?php echo $gurus->email; ?>" required />
+              <input type="text" class="form-control" id="alamat" name="email" value="<?php echo $gurus->email; ?>" placeholder="" required />
             </div>
+            <div class="form-group form-animate-text" style="margin-top:40px !important;">
+              Jenis Kelamin
+              <div class="" style="margin-top:5px;">
+                <?php if ($gurus->jk == "1") : ?>
+                  <input type="radio" name="jk" value="1" checked required> Laki-laki
+                  <input type="radio" name="jk" value="0"> Perempuan
+                <?php else : ?>
+                  <input type="radio" name="jk" value="1" required> Laki-laki
+                  <input type="radio" name="jk" value="0" checked> Perempuan
+                <?php endif; ?>
+
+
+              </div>
+            </div>
+            <div class="form-group form-animate-checkbox">
+              <input type="checkbox" checked="checked" class="checkbox" id="status_bk" name="status_bk" value="1">
+              <label>Guru BK</label>
+            </div>
+
             <!--
             <div class="form-group">
               <label for="Nama Kategori">JK :</label>
               <input type="radio" name="jk" required> Laki-laki
               <input type="radio" name="jk"> Perempuan
             </div>
-
               -->
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
@@ -167,4 +190,30 @@
     </div>
   </div>
 
+<?php endforeach; ?>
+
+<?php foreach ($guru as $gurus) : ?>
+
+  <!-- MODAL RESET PASSWORD -->
+
+  <div class="modal fade" id="modalResetPWD<?php echo $gurus->NUPTK ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+          <h3 class="modal-title" id="myModalLabel">Reset Password Guru</h3>
+        </div>
+        <form class="form-horizontal" method="post" action="<?php echo base_url() . 'guru/resetPWD' ?>">
+          <div class="modal-body">
+            <p>Anda yakin mau mereset password Guru <b><?php echo $gurus->nama; ?> ?</b></p>
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="NUPTK" value="<?php echo $gurus->NUPTK; ?>">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+            <button class="btn btn-danger">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 <?php endforeach; ?>

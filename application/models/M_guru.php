@@ -30,7 +30,7 @@ class M_guru extends CI_Model
         //return $hasil;
     }
 
-    function edit($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk, $password, $token)
+    function edit($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk)
     {
         $this->db->set('nama', $nama);
         $this->db->set('alamat', $alamat);
@@ -38,8 +38,6 @@ class M_guru extends CI_Model
         $this->db->set('email', $email);
         $this->db->set('jk', $jk);
         $this->db->set('status_bk', $status_bk);
-        $this->db->set('password', $password);
-        $this->db->set('token', $token);
         $this->db->where('NUPTK', $NUPTK);
         $this->db->update('tb_guru');
 
@@ -53,5 +51,19 @@ class M_guru extends CI_Model
 
         //$hasil = $this->db->query("DELETE FROM tb_guru WHERE NUPTK='$NUPTK'");
         //return $hasil;
+    }
+
+    public function tambahBK($NUPTK, $status_bk)
+    {
+        $this->db->set('status_bk', $status_bk);
+        $this->db->where('NUPTK', $NUPTK);
+        $this->db->update('tb_guru');
+    }
+
+    public function resetPeWD($NUPTK, $password)
+    {
+        $this->db->set('password', $password);
+        $this->db->where('NUPTK', $NUPTK);
+        $this->db->update('tb_guru');
     }
 }
