@@ -21,10 +21,10 @@
             <?php $i = 1;
             foreach ($guru as $gurus) :
               if ($gurus->status_bk == "0") :
-                ?>
+            ?>
                 <tr>
                   <td><?php echo $i;
-                          $i++; ?></td>
+                      $i++; ?></td>
                   <td><?php echo $gurus->nama; ?></td>
                   <td><?php echo $gurus->NUPTK; ?></td>
                   <td><?php echo $gurus->email; ?></td>
@@ -45,9 +45,10 @@
   </div>
 </div>
 
-<!-- MODAL Detail -->
 
 <?php foreach ($guru as $gurus) : ?>
+
+  <!-- MODAL Detail -->
 
   <div class="modal fade" id="modalFormDetail<?php echo $gurus->NUPTK ?>" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -82,12 +83,12 @@
               <label for="JK">JK :</label>
               <input type="text" class="form-control" id="alamat" name="alamat" value="
               <?php
-                if ($gurus->jk == "0") {
-                  echo "Perempuan";
-                } else {
-                  echo "Laki - Laki";
-                }
-                ?>" placeholder="<?php echo $gurus->jk; ?>" readonly />
+              if ($gurus->jk == "0") {
+                echo "Perempuan";
+              } else {
+                echo "Laki - Laki";
+              }
+              ?>" placeholder="<?php echo $gurus->jk; ?>" readonly />
             </div>
         </div>
         <div class="modal-footer">
@@ -136,7 +137,6 @@
           <form action="<?php echo base_url() . 'guru/edit' ?>" method="post">
             <div class="form-group">
               <label for="NUPTK">NUPTK : <input name="NUPTK" value="<?php echo $gurus->NUPTK ?>" class="form-control" type="text" placeholder="<?php echo $gurus->NUPTK; ?>" readonly></label>
-
             </div>
             <div class="form-group">
               <label for="Nama Jurusan">Nama : <input name="nama" value="<?php echo $gurus->nama; ?>" class="form-control" type="text" placeholder="" required></label>
@@ -163,8 +163,6 @@
                   <input type="radio" name="jk" value="1" required> Laki-laki
                   <input type="radio" name="jk" value="0" checked> Perempuan
                 <?php endif; ?>
-
-
               </div>
             </div>
             <div class="form-group form-animate-checkbox">
