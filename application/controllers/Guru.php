@@ -49,7 +49,7 @@ class Guru extends CI_Controller
 		$jk = $this->input->post('jk');
 		//$status_bk = $this->input->post('status_bk');
 		$status_bk = (isset($_POST['status_bk'])) ? 1 : 0;
-		$password = $this->input->post('password');
+		$password = "Guru123";
 		$passwordx = password_hash($password, PASSWORD_DEFAULT);
 		$token = $this->input->post('token');
 		$this->M_guru->simpan($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk, $passwordx, $token);
@@ -67,7 +67,7 @@ class Guru extends CI_Controller
 	{
 		$NUPTK = $this->input->post('NUPTK');
 		$password = "guru123";
-		$passwordx = md5($password);
+		$passwordx = password_hash($password, PASSWORD_DEFAULT);
 		$this->M_guru->resetPeWD($NUPTK, $passwordx);
 		redirect('guru');
 	}

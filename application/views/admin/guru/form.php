@@ -71,12 +71,6 @@
                     </div>
 
                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                      <input type="text" class="form-text" id="" name="password" required>
-                      <span class="bar"></span>
-                      <label>Password</label>
-                    </div>
-
-                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
                       <input type="text" class="form-text mask-phone" id="" name="no_hp" required>
                       <span class="bar"></span>
                       <label>Nomor Hp</label>

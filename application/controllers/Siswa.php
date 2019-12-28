@@ -18,6 +18,7 @@ class Siswa extends CI_Controller
 		$data["siswa"] = $this->M_siswa->getAll();
 
 		$this->load->view('admin/siswa/index', $data);
+		//$this->load->view('admin/siswa/index');
 	}
 
 	public function form()

@@ -24,19 +24,19 @@
             <?php $i = 1;
             foreach ($siswa as $siswas) :
               if ($siswas->id_kelas->tingkat == "XI") :
-                ?>
+            ?>
                 <tr>
                   <td><?php echo $i;
-                          $i++; ?></td>
+                      $i++; ?></td>
                   <td><?php echo $siswas->nama; ?></td>
                   <td><?php echo $siswas->NIS; ?></td>
                   <td><?php echo $siswas->id_kelas->nama; ?></td>
                   <td><?php echo $siswas->id_fp; ?></td>
                   <td>
-                    <a data-target="#modalFormDetail<?php echo $siswas->NIS ?>" data-toggle="modal" class=" btn ripple-infinite btn-info" data-placement="top" title="Detail"><span class="fas fa-list"></span></a>
-                    <a data-target="#modalFormEdit<?php echo $siswas->NIS ?>" data-toggle="modal" class=" btn  ripple-infinite btn-primary" data-placement="top" title="Ubah"><span class="fas fa-edit"></span></a>
-                    <a data-target="#modalResetPWD<?php echo $siswas->NIS ?>" data-toggle="modal" class=" btn  ripple-infinite btn-info" data-placement="top" title="Reset Password"><span class="fas fa-sync"></span></a>
-                    <a data-target="#modalHapusGuru<?php echo $siswas->NIS ?>" data-toggle="modal" class=" btn  ripple-infinite btn-danger" data-placement="top" title="Hapus"><span class="fas fa-trash"></span></a>
+                    <a data-target="#modalFormDetailXI<?php echo $siswas->NIS ?>" data-toggle="modal" class=" btn ripple-infinite btn-info" data-placement="top" title="Detail"><span class="fas fa-list"></span></a>
+                    <a data-target="#modalFormEditXI<?php echo $siswas->NIS ?>" data-toggle="modal" class=" btn  ripple-infinite btn-primary" data-placement="top" title="Ubah"><span class="fas fa-edit"></span></a>
+                    <a data-target="#modalResetPWDXI<?php echo $siswas->NIS ?>" data-toggle="modal" class=" btn  ripple-infinite btn-info" data-placement="top" title="Reset Password"><span class="fas fa-sync"></span></a>
+                    <a data-target="#modalHapusGuruXI<?php echo $siswas->NIS ?>" data-toggle="modal" class=" btn  ripple-infinite btn-danger" data-placement="top" title="Hapus"><span class="fas fa-trash"></span></a>
                   </td>
                 </tr>
             <?php endif;
@@ -46,3 +46,9 @@
     </div>
   </div>
 </div>
+
+<?php foreach ($siswa as $siswas) : ?>
+
+
+
+<?php endforeach; ?>
