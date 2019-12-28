@@ -48,16 +48,13 @@ class M_siswa extends CI_Model
         //return $hasil;
     }
 
-    function edit($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk)
+    function edit($NIS, $NISN, $nama, $jk)
     {
+        $this->db->set('NISN', $NISN);
         $this->db->set('nama', $nama);
-        $this->db->set('alamat', $alamat);
-        $this->db->set('no_hp', $no_hp);
-        $this->db->set('email', $email);
         $this->db->set('jk', $jk);
-        $this->db->set('status_bk', $status_bk);
-        $this->db->where('NUPTK', $NUPTK);
-        $this->db->update('tb_guru');
+        $this->db->where('NIS', $NIS);
+        $this->db->update('tb_siswa');
 
         //$hasil = $this->db->query("UPDATE tb_guru SET nama='$nama',alamat='$alamat',no_hp='$no_hp',email='$email',jk='$jk',status_bk='$status_bk',password='$password',token='$token' WHERE NUPTK='$NUPTK'");
         //return $hasil;
@@ -69,17 +66,10 @@ class M_siswa extends CI_Model
         //return $hasil;
     }
 
-    public function tambahBK($NUPTK, $status_bk)
-    {
-        $this->db->set('status_bk', $status_bk);
-        $this->db->where('NUPTK', $NUPTK);
-        $this->db->update('tb_guru');
-    }
-
-    public function resetPeWD($NUPTK, $password)
+    public function resetPeWD($NIS, $password)
     {
         $this->db->set('password', $password);
-        $this->db->where('NUPTK', $NUPTK);
-        $this->db->update('tb_guru');
+        $this->db->where('NIS', $NIS);
+        $this->db->update('tb_siswa');
     }
 }

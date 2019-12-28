@@ -31,18 +31,12 @@ class Siswa extends CI_Controller
 	//funcion meng edit data siswa
 	public function edit()
 	{
-		$NUPTK = $this->input->post('NUPTK');
+		$NIS = $this->input->post('NIS');
+		$NISN = $this->input->post('NISN');
 		$nama = $this->input->post('nama');
-		$alamat = $this->input->post('alamat');
-		$no_hp = $this->input->post('no_hp');
-		$email = $this->input->post('email');
 		$jk = $this->input->post('jk');
-		//$status_bk = $this->input->post('status_bk');
-		$status_bk = (isset($_POST['status_bk'])) ? 1 : 0;
-		//$password = $this->input->post('password');
-		//$token = $this->input->post('token');
-		$this->M_siswa->edit($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk);
-		redirect('guru');
+		$this->M_siswa->edit($NIS, $NISN, $nama, $jk);
+		redirect('siswa');
 	}
 
 	//function menambah data siswa
@@ -62,7 +56,8 @@ class Siswa extends CI_Controller
 		$nama_ayah = $this->input->post('nama_ayah');
 		$nama_ibu = $this->input->post('nama_ibu');
 		$id_fp = "0";
-		$password = "0";
+		$passwordx = "guru123";
+		$password = password_hash($passwordx, PASSWORD_DEFAULT);
 		//$passwordx = md5($password);
 		$this->M_siswa->simpan($NIS, $NISN, $nama, $jk, $id_kelas, $tgl_lahir, $no_hp, $email, $alamat, $nama_ayah, $nama_ibu, $id_fp, $password);
 		redirect('siswa');
@@ -73,6 +68,16 @@ class Siswa extends CI_Controller
 	{
 		$NIS = $this->input->post('NIS');
 		$this->M_siswa->delete($NIS);
+		redirect('siswa');
+	}
+
+
+	public function resetPWD()
+	{
+		$NIS = $this->input->post('NIS');
+		$password = "guru123";
+		$passwordx = password_hash($password, PASSWORD_DEFAULT);
+		$this->M_siswa->resetPeWD($NIS, $passwordx);
 		redirect('siswa');
 	}
 }
