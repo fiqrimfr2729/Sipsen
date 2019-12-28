@@ -1,4 +1,4 @@
-<?php
+ <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class PresensiModel extends CI_Model {
@@ -102,7 +102,10 @@ class PresensiModel extends CI_Model {
 
   // mengambil data siswa tidak scan fingerprint pulang
   public function getSiswaKabur(){
-    $this->db->where('keluar', '00:00:00');
+    $date = date('Y-m-d');
+    $this->db->where('tanggal', $date);
+    $this->db->where('keluar', null);
+    $this->db->where('id_jenis_presensi', 1);
     $this->db->from('tb_siswa');
     $this->db->join('tb_presensi', 'tb_siswa.NIS = tb_presensi.NIS');
     $siswa = $this->db->get()->result();
@@ -137,7 +140,6 @@ class PresensiModel extends CI_Model {
     $this->db->where('id_kelas', $idKelas);
     $this->db->where('tanggal', $date);
     $this->db->from('tb_presensi');
-
     $this->db->join('tb_siswa', 'tb_siswa.NIS = tb_presensi.NIS');
     $presensi = $this->db->get()->result();
 

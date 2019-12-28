@@ -12,7 +12,7 @@ class JamModel extends CI_Model {
 
   public function getJamPulang(){
     $jam = $this->db->where('id_jam', 1)->from('tb_jam')->get()->row();
-    return $jam;
+    return $jam->jam_pulang;
   }
 
   public function getJamMasuk(){

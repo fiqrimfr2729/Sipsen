@@ -31,25 +31,25 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="<?php echo base_url();  ?>asset/images/Logo-Sipsen.png" style="align-items: middle;margin-top: -136px;">
+					<img src="<?php echo base_url();  ?>asset/images/logosipsen.png">
 				</div>
 
-				<form method="post" action="<?php echo base_url(); ?>Login/aksilogin" id="formLogin" style="margin-top: -79px;">
+				<form class="login100-form validate-form" method="post" action="<?php echo base_url(); ?>Login/aksilogin" id="formLogin">
 					<span class="login100-form-title">
 						Member Login
 					</span>
 
+					<!-- Notif eror -->
+					<?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
 					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="username" placeholder="Username">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
-
-						<!-- Notif eror -->
-						<?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
 					</div>
 
+					<?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
 						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100"></span>
@@ -58,7 +58,7 @@
 						</span>
 
 						<!-- Notif eror -->
-						<?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
+
 
 					</div>
 
@@ -66,6 +66,8 @@
 						<button type="submit" form="formLogin" class="login100-form-btn">
 							Login
 						</button>
+					</div>
+					<div class="text-center p-t-100">
 					</div>
 				</form>
 			</div>

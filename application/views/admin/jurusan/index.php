@@ -55,7 +55,7 @@
                               $i++; ?></td>
                         <td><?php echo $jurusans->nama_jurusan; ?></td>
                         <td><?php echo $jurusans->singkatan; ?></td>
-                        <td></td>
+                        <td><?php echo $jurusans->kelas; ?></td>
                         <td><a data-target="#modalFormJurusan<?php echo $jurusans->id_jurusan; ?>" data-toggle="modal" class=" btn  ripple-infinite btn-primary" data-placement="top" title="Ubah"><span class="fas fa-edit"></span></a>
                           <a data-target="#modalHapusJurusan<?php echo $jurusans->id_jurusan; ?>" data-toggle="modal" class=" btn  ripple-infinite btn-danger" data-placement="top" title="Hapus"><span class="fas fa-trash"></span></a>
                         </td>

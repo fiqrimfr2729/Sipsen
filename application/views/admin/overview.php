@@ -40,7 +40,7 @@
                   </div>
                 </div>
                 <div class="panel-body text-center">
-                  <h1>320</h1>
+                  <h1><?php echo $siswa ?></h1>
                   <p>Data Siswa</p>
                   <hr />
                 </div>
@@ -59,7 +59,7 @@
                   </div>
                 </div>
                 <div class="panel-body text-center">
-                  <h1>320</h1>
+                  <h1><?php echo $guru ?></h1>
                   <p>Data Guru</p>
                   <hr />
                 </div>
@@ -78,7 +78,7 @@
                   </div>
                 </div>
                 <div class="panel-body text-center">
-                  <h1>100</h1>
+                  <h1><?php echo $wali ?></h1>
                   <p>Data Wali Siswa</p>
                   <hr />
                 </div>

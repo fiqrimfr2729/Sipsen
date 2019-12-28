@@ -6,10 +6,10 @@
           <h1 class="animated fadeInLeft">21:00</h1>
           <p class="animated fadeInRight">Sat, October 1st 2029</p>
       </li>
+
       <li class="<?php if ($menu == 'overview') echo 'active'; ?> ripple">
         <a href="<?php echo base_url(''); ?>welcome"><span class="fa-home fa"></span> Dashboard </a>
       </li>
-
 
       <li class="<?php if ($menu == 'siswa') echo 'active'; ?> ripple">
         <a href="<?php echo base_url(''); ?>siswa"><span class="fa fa-book-reader"></span> Siswa</a>
@@ -17,6 +17,10 @@
 
       <li class="<?php if ($menu == 'guru') echo 'active'; ?> ripple">
         <a href="<?php echo base_url(''); ?>guru"><span class="fa fa-chalkboard-teacher"></span> Guru</a>
+      </li>
+
+      <li class="<?php if ($menu == 'wali') echo 'active'; ?> ripple">
+        <a href="<?php echo base_url(''); ?>wali"><span class="fa fa-users"></span> Wali</a>
       </li>
 
       <li class="<?php if ($menu == 'kelas') echo 'active'; ?> ripple">

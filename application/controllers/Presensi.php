@@ -123,17 +123,70 @@ class Presensi extends CI_Controller{
     if(sizeof($tokenWali) != 0){
       $this->NotifikasiModel->notifMultipleWali($tokenWali);
     }
-    echo var_dump($jam_pulang-$time);
+    echo var_dump($antrian);
   }
 
   function insertSiswaKabur(){
-    $siswa = $this->PresensiModel->getSiswaKabur();
+    date_default_timezone_set("Asia/Jakarta");
+    $jam_sekarang = strtotime(date('H:i:s'));
+    $jam_pulang = strtotime($this->JamModel->getJamPulang());
+    $jam = floor(($jam_pulang+1800)/60) - floor($jam_sekarang/60);
+    echo $jam;
 
-    foreach ($siswa as $siswaa) {
-      $this->PresensiModel->updateSiswaKabur($siswaa->id_presensi);
+    if($jam != 0){
+      return 0;
     }
 
-    echo var_dump($siswa);
+    $tanggal = date('Y:m:d');
+    //token siswa yang kabur
+    $token = array();
+    $dataWali = array();
+    $libur=$this->LiburModel->getLibur();
+
+    if($libur != null){
+      return 0;
+    }
+
+    $siswaKabur = $this->PresensiModel->getSiswaKabur();
+
+    //echo var_dump($siswaTidakHadir);
+    foreach ($siswaKabur as $siswa) {
+      //Update presensi siswa
+      $this->PresensiModel->updateSiswaKabur($siswa->id_presensi);
+
+      //get token fcm siswa
+      if($siswa->token != null){
+        $token[]=$siswa->token;
+      }
+
+      //get token fcm wali
+      if($siswa->id_wali !=null){
+        $wali = $this->WaliModel->getWaliByID($siswa->id_wali);
+        if($wali->token != null){
+          $data = [
+            'token' => $wali->token,
+            'judul' => 'Informasi kehadiran',
+            'isi' => "$siswa->nama_siswa tidak melakukan presensi pulang"
+          ];
+          $dataWali[] = $data;
+        }
+      }
+    }
+
+    // mengirim notifikasi pada siswa yang kabur
+    if(sizeof($token) !=0){
+      $judul = 'Informasi kehadiran';
+      $isi = 'Anda tidak melakukan presensi pulang';
+      $this->NotifikasiModel->notifMultipleSiswa($token,$judul, $isi);
+    }
+
+    //mengirim notifikasi pada wali
+    if(sizeof($dataWali) != 0){
+      $this->NotifikasiModel->notifMultipleWali($dataWali);
+    }
+    //echo "berhasil";
+
+    echo var_dump($siswaKabur);
   }
 
   function getPresensiByBulan(){

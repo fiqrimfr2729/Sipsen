@@ -15,6 +15,9 @@ class Welcome extends CI_Controller
 	public function index()
 	{
 		$data['menu'] = 'dashboard';
+		$data['siswa'] = $this->db->from('tb_siswa')->get()->num_rows();
+		$data['wali'] = $this->db->from('tb_wali')->get()->num_rows();
+		$data['guru'] = $this->db->from('tb_guru')->get()->num_rows();
 		$this->load->view('admin/overview', $data);
 	}
 

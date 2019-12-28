@@ -63,9 +63,8 @@ class Presensi extends REST_Controller {
             'bawah' => "$nis"
         ], 200);
       }
-
     }else if($jam_pulang <= $jam_sekarang || $jam_sekarang >= $jam_pulang+1800){
-      if($presensi != null){
+      if($presensi->keluar == null){
         if($presensi->id_jenis_presensi != 2){
           $this->PresensiModel->presensiSiswaKeluar($presensi->id_presensi, $jam_sekarang_str);
           $this->AntrianSiswaModel->insertToAntrian($nis);

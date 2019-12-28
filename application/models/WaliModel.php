@@ -8,4 +8,14 @@ class WaliModel extends CI_Model {
 
     return $wali;
   }
+
+  public function getAll(){
+    $wali = $this->db->from('tb_wali')->get()->result();
+    foreach ($wali as $value) {
+      $siswa = $this->db->where('id_wali', $value->id_wali)->from('tb_siswa')->get()->row();
+      $value->siswa=$siswa;
+    }
+
+    return $wali;
+  }
 }

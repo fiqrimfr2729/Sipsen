@@ -27,19 +27,19 @@ class M_kelas extends CI_Model
         return $this->db->where('id_jurusan', $id_jurusan)->from('tb_jurusan')->get()->row();
     }
 
-    public function getNamaKelas()
-    {
-        $this->db->select('id_kelas, tingkat, nama, singkatan');
-        $this->db->from('tb_kelas');
-        $this->db->join('tb_jurusan', 'tb_kelas.id_jurusan = tb_jurusan.id_jurusan');
-        $data = $this->db->get()->result();
-
-        foreach ($data as $kelas) {
-            $kelas->kelas = $kelas->tingkat . ' ' . $kelas->singkatan . ' ' . $kelas->nama;
-        }
-
-        return $data;
-    }
+    // public function getNamaKelas()
+    // {
+    //     $this->db->select('id_kelas, tingkat, nama, singkatan');
+    //     $this->db->from('tb_kelas');
+    //     $this->db->join('tb_jurusan', 'tb_kelas.id_jurusan = tb_jurusan.id_jurusan');
+    //     $data = $this->db->get()->result();
+    //
+    //     foreach ($data as $kelas) {
+    //         $kelas->kelas = $kelas->tingkat . ' ' . $kelas->singkatan . ' ' . $kelas->nama;
+    //     }
+    //
+    //     return $data;
+    // }
 
 
     public function simpan($id_jurusan, $tingkat, $nama, $kd_alat)

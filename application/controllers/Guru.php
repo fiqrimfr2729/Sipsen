@@ -50,7 +50,7 @@ class Guru extends CI_Controller
 		//$status_bk = $this->input->post('status_bk');
 		$status_bk = (isset($_POST['status_bk'])) ? 1 : 0;
 		$password = $this->input->post('password');
-		$passwordx = md5($password);
+		$passwordx = password_hash($password, PASSWORD_DEFAULT);
 		$token = $this->input->post('token');
 		$this->M_guru->simpan($NUPTK, $nama, $alamat, $no_hp, $email, $jk, $status_bk, $passwordx, $token);
 		redirect('guru');

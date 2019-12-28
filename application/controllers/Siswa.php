@@ -16,7 +16,6 @@ class Siswa extends CI_Controller
 	{
 		$data['menu'] = 'siswa';
 		$data["siswa"] = $this->M_siswa->getAll();
-		//echo var_dump($data['jurusan']);
 
 		$this->load->view('admin/siswa/index', $data);
 	}

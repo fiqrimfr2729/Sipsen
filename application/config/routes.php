@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 $route['default_controller'] = 'login';
 $route['/siswa'] = 'siswa';
+$route['/wali'] = 'wali';
 $route['/jurusan'] = 'jurusan';
 $route['/kelas'] = 'kelas';
 $route['/login'] = 'login';
@@ -23,6 +24,9 @@ $route['api/logoutWali']     = 'api/logout/logout_wali';
 $route['api/profilSiswa']    = 'api/profil/getProfilSiswa';
 $route['api/profilWali']    = 'api/profil/getProfilWali';
 $route['api/profilGuru']    = 'api/profil/getProfilGuru';
+$route['api/ubahPasswordSiswa'] = 'api/profil/ubahPasswordSiswa';
+$route['api/ubahPasswordGuru'] = 'api/profil/ubahPasswordGuru';
+$route['api/ubahPasswordWali'] = 'api/profil/ubahPasswordWali';
 
 //API izin
 $route['api/izin']              = 'api/izin/izin_siswa';
@@ -48,3 +52,5 @@ $route['api/getKelas'] = 'api/kelas/get_kelas';
 //firebase
 $route['firebase'] = 'FirebaseTest/test';
 $route['notifPresensi'] = 'presensi/notifPresensi';
+$route['insertSiswaTidakHadir'] = 'presensi/insertSiswaTidakHadir';
+$route['insertSiswaKabur'] = 'presensi/insertSiswaKabur';

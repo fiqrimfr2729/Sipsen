@@ -19,6 +19,13 @@ class Login extends CI_Controller
 		$this->load->view('admin/v_login', $data);
 	}
 
+	public function password_check($str){
+	   if (preg_match('#[0-9]#', $str) && preg_match('#[a-zA-Z]#', $str)) {
+	     return TRUE;
+	   }
+	   return FALSE;
+ 	}
+
 	public function aksilogin()
 	{
 		//$this->form_validation->set_rules('username', 'Username', 'trim|required');
@@ -28,15 +35,15 @@ class Login extends CI_Controller
 			'username',
 			'Username',
 			'trim|required',
-			array('required' => 'Username tidak boleh kosong!!!')
+			array('required' => 'Username tidak boleh kosong')
 		);
 		$this->form_validation->set_rules(
 			'password',
 			'Password',
-			'trim|required|numeric',
+			'trim|required|alpha_numeric|regex_match[/(?=.*?[a-z,A-Z])(?=.*?[0-9])/]',
 			array(
-				'numeric' => 'Password yang di inputkan harus berupa angka !!',
-				'required' => 'Password tidak boleh kosong !!!'
+				'regex_match' => 'Password harus menggunakan alfabet dan numerik',
+				'required' => 'Password tidak boleh kosong '
 			)
 		);
 
