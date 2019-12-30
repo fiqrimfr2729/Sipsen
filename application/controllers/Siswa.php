@@ -35,7 +35,17 @@ class Siswa extends CI_Controller
 		$NISN = $this->input->post('NISN');
 		$nama = $this->input->post('nama');
 		$jk = $this->input->post('jk');
-		$this->M_siswa->edit($NIS, $NISN, $nama, $jk);
+		$id_kelas = $this->input->post('id_kelas');
+		$tgl_lahir = $this->input->post('tgl_lahir');
+		$no_hp = $this->input->post('no_hp');
+		$email = $this->input->post('email');
+		$alamat = $this->input->post('alamat');
+		$nama_ayah = $this->input->post('nama_ayah');
+		$nama_ibu = $this->input->post('nama_ibu');
+		//$id_wali = $this->input->post('id_wali');
+		$id_fp = $this->input->post('id_fp');
+		//$passwordx = md5($password);
+		$this->M_siswa->edit($NIS, $NISN, $nama, $jk, $id_kelas, $tgl_lahir, $no_hp, $email, $alamat, $nama_ayah, $nama_ibu, $id_fp);
 		redirect('siswa');
 	}
 

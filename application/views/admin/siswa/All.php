@@ -141,17 +141,31 @@
         <div class="modal-body">
           <form action="<?php echo base_url() . 'siswa/edit' ?>" method="post">
             <div class="form-group">
-              <label for="NIS">NIS : <input name="NIS" value="<?php echo $siswas->NIS; ?>" class="form-control" type="text" placeholder=""></label>
+              <label for="NIS">NIS : <input name="NIS" value="<?php echo $siswas->NIS; ?>" class="form-control" type="text" placeholder="" readonly></label>
             </div>
             <div class="form-group">
               <label for="NISN">NISN : <input name="NISN" value="<?php echo $siswas->NISN; ?>" class="form-control" type="text" placeholder=""></label>
             </div>
             <div class="form-group">
-              <label for="nama">NAMA LENGKAP : <input name="nama" value="<?php echo $siswas->nama; ?>" class="form-control" type="text" placeholder=""></label>
+              <label for="NAMA">Nama : <input name="nama" value="<?php echo $siswas->nama; ?>" class="form-control" type="text" placeholder=""></label>
             </div>
             <div class="form-group form-animate-text" style="margin-top:40px !important;">
-              Jenis Kelamin
-              <div class="" style="margin-top:5px;">
+              Kelas
+
+              <select name="id_kelas" id="#" class="form-control">
+                <?php
+
+                $kelas = $this->M_kelas->getNamaKelas();
+                echo '<option value="">PILIH KELAS</option>';
+                foreach ($kelas as $kelass) {
+                  echo '<option value="' . $kelass->id_kelas . '"  name="id_kelas" placeholder="' . $kelass->id_kelas . '">' . $kelass->kelas . '</option>';
+                }
+                ?>
+              </select>
+            </div>
+
+            <div class="form-group" style="margin-top:5px;">
+              <label>Jenis Kelamin :<br>
                 <?php if ($siswas->jk == "1") : ?>
                   <input type="radio" name="jk" value="1" checked required> Laki-laki
                   <input type="radio" name="jk" value="0"> Perempuan
@@ -159,8 +173,57 @@
                   <input type="radio" name="jk" value="1" required> Laki-laki
                   <input type="radio" name="jk" value="0" checked> Perempuan
                 <?php endif; ?>
-              </div>
+              </label>
             </div>
+
+            <div class="form-group">
+              <label for="tgl_lahir">Tanggal Lahir :
+                <input type="date" id="tgl_lahir" class="form-text form-control" placeholder="<?php echo $siswas->tgl_lahir ?>" value="<?php echo $siswas->tgl_lahir ?>" aria-describedby="basic-addon2" name="tgl_lahir">
+            </div>
+
+            <div class="form-group">
+              <label>Nomor Hp :
+                <input type="text" class="form-text mask-phone form-control" id="" name="no_hp" value="<?php echo $siswas->no_hp ?>" required>
+                <span class="bar"></span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>Email :
+                <input type="email" class="form-text form-control" value="<?php echo $siswas->email ?>" id="validate_email" name="email" required>
+                <span class="bar"></span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>Alamat :
+                <input type="text" class="form-text form-control" id="" value="<?php echo $siswas->alamat ?>" name="alamat" required>
+                <span class="bar"></span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>Nama Ibu :
+                <input type="text" class="form-text form-control" id="" value="<?php echo $siswas->nama_ibu ?>" name="nama_ibu" required>
+                <span class="bar"></span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>Nama Ayah :
+                <input type="text" class="form-text form-control" id="" value="<?php echo $siswas->nama_ayah ?>" name="nama_ayah" required>
+                <span class="bar"></span>
+              </label>
+            </div>
+
+            <div class="form-group">
+              <label>ID FP
+                <input type="text" class="form-text" id="" value="<?php echo $siswas->id_fp ?>" name="id_fp" required>
+                <span class="bar"></span>
+              </label>
+            </div>
+
+
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
               <button type="submit" class="btn btn-primary">Masukan</button>
