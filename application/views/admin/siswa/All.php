@@ -5,7 +5,6 @@
     </div>
     <div class="form-group" style="margin-top:10px; margin-left:10px;">
       <a class="btn btn-raised btn-success" href="<?php echo base_url(''); ?>siswa/form"><i class="fas fa-plus"></i> Tambah data</a>
-      <button class="btn btn-raised btn-primary"><i class="fas fa-file-download"></i> Unduh .xlsx</button>
     </div>
     <div class="panel-body">
       <div class="responsive-table">
@@ -168,6 +167,29 @@
             </div>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL RESET PASSWORD -->
+
+  <div class="modal fade" id="modalResetPWD<?php echo $siswas->NIS ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+          <h3 class="modal-title" id="myModalLabel">Reset Password Guru</h3>
+        </div>
+        <form class="form-horizontal" method="post" action="<?php echo base_url() . 'siswa/resetPWD' ?>">
+          <div class="modal-body">
+            <p>Anda yakin mau mereset password Siswa <b><?php echo $siswas->nama_siswa; ?> ?</b></p>
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="NIS" value="<?php echo $siswas->NIS; ?>">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+            <button class="btn btn-danger">Reset</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
