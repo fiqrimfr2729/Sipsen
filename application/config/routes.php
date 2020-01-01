@@ -48,6 +48,11 @@ $route['presensiKabur'] = 'presensi/insertSiswaKabur';
 //API kelas
 $route['api/getKelas'] = 'api/kelas/get_kelas';
 
+//API bimbingan
+$route['api/bimbingan'] = 'api/bimbingan/bimbingan';
+$route['api/saran'] = 'api/bimbingan/saran';
+$route['api/getBimbinganByNIS'] = 'api/bimbingan/getBimbinganByNIS';
+$route['api/getBimbingan'] = 'api/bimbingan/getBimbingan';
 
 //firebase
 $route['firebase'] = 'FirebaseTest/test';

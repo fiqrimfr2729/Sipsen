@@ -186,7 +186,7 @@ class Presensi extends CI_Controller{
     }
     //echo "berhasil";
 
-    echo var_dump($siswaKabur);
+    //echo var_dump($siswaKabur);
   }
 
   function getPresensiByBulan(){

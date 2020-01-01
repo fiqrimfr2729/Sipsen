@@ -66,4 +66,8 @@ class M_guru extends CI_Model
         $this->db->where('NUPTK', $NUPTK);
         $this->db->update('tb_guru');
     }
+
+    public function getGuruBK(){
+      return $this->db->select('token')->where('status_bk', 1)->from('tb_guru')->get()->result();
+    }
 }

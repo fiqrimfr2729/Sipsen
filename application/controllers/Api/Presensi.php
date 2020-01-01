@@ -17,6 +17,7 @@ class Presensi extends REST_Controller {
         $this->load->model('SiswaModel');
         $this->load->model('AntrianSiswaModel');
         $this->load->model('M_kelas');
+        $this->load->model('NotifikasiModel');
         $this->load->library('form_validation');
     }
 
@@ -57,7 +58,8 @@ class Presensi extends REST_Controller {
         $keterlambatan = $this->KeterlambatanModel->getKeterlambatanMasuk();
         //insert presensi
         $this->PresensiModel->presensiSiswa($siswa->NIS, 1, $date, $jam_sekarang_str, $keterlambatan);
-        $this->AntrianSiswaModel->insertToAntrian($nis);
+        //$this->AntrianSiswaModel->insertToAntrian($nis);
+        $this->NotifikasiModel->notif($siswa->token, "Selamat datang di Sekolah");
         $this->response([
             'atas' => 'Masuk, NIS:',
             'bawah' => "$nis"
@@ -67,7 +69,8 @@ class Presensi extends REST_Controller {
       if($presensi->keluar == null){
         if($presensi->id_jenis_presensi != 2){
           $this->PresensiModel->presensiSiswaKeluar($presensi->id_presensi, $jam_sekarang_str);
-          $this->AntrianSiswaModel->insertToAntrian($nis);
+          //$this->AntrianSiswaModel->insertToAntrian($nis);
+          $this->NotifikasiModel->notif($siswa->token, "Jangan lupa mengerjakan pr");
           $this->response([
               'atas' => 'Keluar, NIS:',
               'bawah' => "$nis"

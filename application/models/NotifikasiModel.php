@@ -10,7 +10,7 @@ use Kreait\Firebase\Messaging\Notification;
 class NotifikasiModel extends CI_Model {
 
 
-	public function notif($token)
+	public function notif($token, $isi)
 	{
 		$factory = (new Factory)
     ->withServiceAccount('./secret/sipsen-b51ba-firebase-adminsdk-iitq6-f4ac9ac94a.json')
@@ -21,8 +21,29 @@ class NotifikasiModel extends CI_Model {
 		$messaging = $factory->createMessaging();
 
 		//$deviceToken = 'fZp207ZmmMk:APA91bG2hzmUeImDrGSMordkVVgzuN5zHUOdJ8JO7gBG3SDJLgo2eg8_Qc4Tpjd_y-PSI2jLUYCw4Gymi7aG3_KIjUwG8U1jpNaO3HKlOTDYYmLV2idjtPpaBndAjOL5QvIHFh3K1114';
-		$message = CloudMessage::withTarget('token', $token[0])
-    ->withNotification(Notification::create('Informasi kehadiran hari ini', 'Fiqri belum melakukan scan fingerprint'));
+		$message = CloudMessage::withTarget('token', $token)
+    ->withNotification(Notification::create('Informasi kehadiran hari ini', $isi));
+
+		try{
+			$messaging->send($message);
+		}catch(Exception $e){
+			echo $e->getMessage();
+		}
+	}
+
+	public function notifBimbingan($token)
+	{
+		$factory = (new Factory)
+    ->withServiceAccount('./secret/sipsen-b51ba-firebase-adminsdk-iitq6-f4ac9ac94a.json')
+    ->withDatabaseUri('https://sipsen-b51ba.firebaseio.com/');
+
+		$database = $factory->createDatabase();
+
+		$messaging = $factory->createMessaging();
+
+		//$deviceToken = 'fZp207ZmmMk:APA91bG2hzmUeImDrGSMordkVVgzuN5zHUOdJ8JO7gBG3SDJLgo2eg8_Qc4Tpjd_y-PSI2jLUYCw4Gymi7aG3_KIjUwG8U1jpNaO3HKlOTDYYmLV2idjtPpaBndAjOL5QvIHFh3K1114';
+		$message = CloudMessage::withTarget('token', $token)
+    ->withNotification(Notification::create('Informasi bimbingan', 'Anda baru saja mendapatkan saran'));
 
 		try{
 			$messaging->send($message);
@@ -47,7 +68,9 @@ class NotifikasiModel extends CI_Model {
       $messages[]=$message;
     }
 
-    $sendReport = $messaging->sendAll($messages);
+		try {
+			$sendReport = $messaging->sendAll($messages);
+		} catch (\Exception $e) { }
   }
 
 	public function notifMultipleWali($dataWali){

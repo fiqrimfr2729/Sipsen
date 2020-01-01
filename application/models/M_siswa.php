@@ -27,7 +27,7 @@ class M_siswa extends CI_Model
         $data = array(
             'NIS' => $NIS,
             'NISN' => $NISN,
-            'nama' => $nama,
+            'nama_siswa' => $nama,
             'jk' => $jk,
             'id_kelas' => $id_kelas,
             'tgl_lahir' => $tgl_lahir,
@@ -48,11 +48,20 @@ class M_siswa extends CI_Model
         //return $hasil;
     }
 
-    function edit($NIS, $NISN, $nama, $jk)
+    function edit($NIS, $NISN, $nama, $jk, $id_kelas, $tgl_lahir, $no_hp, $email, $alamat, $nama_ayah, $nama_ibu, $id_fp)
     {
         $this->db->set('NISN', $NISN);
-        $this->db->set('nama', $nama);
+        $this->db->set('nama_siswa', $nama);
         $this->db->set('jk', $jk);
+        $this->db->set('id_kelas', $id_kelas);
+        $this->db->set('tgl_lahir', $tgl_lahir);
+        $this->db->set('no_hp', $no_hp);
+        $this->db->set('email', $email);
+        $this->db->set('alamat', $alamat);
+        $this->db->set('nama_ayah', $nama_ayah);
+        $this->db->set('nama_ibu', $nama_ibu);
+
+        $this->db->set('id_fp', $id_fp);
         $this->db->where('NIS', $NIS);
         $this->db->update('tb_siswa');
 

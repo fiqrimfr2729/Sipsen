@@ -35,9 +35,7 @@ class IzinModel extends CI_Model {
 
     $this->db->set('status', '1');
     $this->db->where('id_izin', $izin->id_izin);
-    $this->db->update('tb_izin');
-
-    echo "berhasil";
+    return $this->db->update('tb_izin');
   }
 
   public function getIzinByNIS($nis){
