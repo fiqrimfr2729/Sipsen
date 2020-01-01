@@ -144,15 +144,15 @@
               <label for="NIS">NIS : <input name="NIS" value="<?php echo $siswas->NIS; ?>" class="form-control" type="text" placeholder="" readonly></label>
             </div>
             <div class="form-group">
-              <label for="NISN">NISN : <input name="NISN" value="<?php echo $siswas->NISN; ?>" class="form-control" type="text" placeholder=""></label>
+              <label for="NISN">NISN : <input name="NISN" value="<?php echo $siswas->NISN; ?>" pattern="[0-9]+" title="Hannya Menggunakan Angka" class="form-control" type="text" placeholder="" required></label>
             </div>
             <div class="form-group">
-              <label for="NAMA">Nama : <input name="nama" value="<?php echo $siswas->nama; ?>" class="form-control" type="text" placeholder=""></label>
+              <label for="NAMA">Nama : <input name="nama" value="<?php echo $siswas->nama; ?>" pattern="[A-Za-z]" title="Hannya Menggunakan Huruf" class="form-control" type="text" placeholder="" required></label>
             </div>
             <div class="form-group form-animate-text" style="margin-top:40px !important;">
               Kelas
 
-              <select name="id_kelas" id="#" class="form-control">
+              <select name="id_kelas" id="#" class="form-control" required>
                 <?php
 
                 $kelas = $this->M_kelas->getNamaKelas();
@@ -178,12 +178,12 @@
 
             <div class="form-group">
               <label for="tgl_lahir">Tanggal Lahir :
-                <input type="date" id="tgl_lahir" class="form-text form-control" placeholder="<?php echo $siswas->tgl_lahir ?>" value="<?php echo $siswas->tgl_lahir ?>" aria-describedby="basic-addon2" name="tgl_lahir">
+                <input type="date" id="tgl_lahir" class="form-text form-control" placeholder="<?php echo $siswas->tgl_lahir ?>" value="<?php echo $siswas->tgl_lahir ?>" aria-describedby="basic-addon2" name="tgl_lahir" required>
             </div>
 
             <div class="form-group">
               <label>Nomor Hp :
-                <input type="text" class="form-text mask-phone form-control" id="" name="no_hp" value="<?php echo $siswas->no_hp ?>" required>
+                <input type="text" class="form-text mask-phone form-control" id="" pattern="[0-9]+" title="Hannya Menggunakan Angka" name="no_hp" value="<?php echo $siswas->no_hp ?>" required>
                 <span class="bar"></span>
               </label>
             </div>
@@ -218,7 +218,7 @@
 
             <div class="form-group">
               <label>ID FP
-                <input type="text" class="form-text" id="" value="<?php echo $siswas->id_fp ?>" name="id_fp" required>
+                <input type="text" class="form-text" id="" value="<?php echo $siswas->id_fp ?>" pattern="[0-9]+" title="Hannya Menggunakan Angka" name="id_fp" required>
                 <span class="bar"></span>
               </label>
             </div>
