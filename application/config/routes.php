@@ -7,6 +7,7 @@ $route['/wali'] = 'wali';
 $route['/jurusan'] = 'jurusan';
 $route['/kelas'] = 'kelas';
 $route['/login'] = 'login';
+$route['/izin'] = 'izin';
 $route['/migration'] = 'migration';
 $route['Login/aksi_login'] = 'Login/aksi_login';
 $route['tambahLibur'] = 'Welcome/tambahLibur';

@@ -34,6 +34,11 @@
       <li class="ripple">
         <a href="<?php echo base_url(''); ?>jurusan"><span class="fa fa-book"></span> Presensi</a>
       </li>
+
+      <li class="ripple">
+        <a href="<?php echo base_url(''); ?>Izin"><span class="fa fa-book"></span> Izin</a>
+      </li>
+
     </ul>
   </div>
 </div>

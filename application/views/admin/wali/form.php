@@ -34,7 +34,7 @@
             </div>
             <div class="col-md-12 panel-body" style="padding-bottom:30px;">
               <div class="col-md-12">
-                <form class="cmxform" id="signupForm" method="post" action="<?php echo base_url('') ?>siswa/addSiswa">
+                <form class="cmxform" id="signupForm" method="post" action="<?php echo base_url('') ?>wali/addWali">
                   <div class="col-md-6">
 
                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
@@ -62,6 +62,12 @@
                       <input type="text" class="form-text mask-phone" id="" name="no_hp" required>
                       <span class="bar"></span>
                       <label>Nomor Hp</label>
+                    </div>
+
+                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                      <input type="text" class="form-text mask-phone" id="" name="NIS" required>
+                      <span class="bar"></span>
+                      <label>NIS SISWA</label>
                     </div>
 
                   </div>
