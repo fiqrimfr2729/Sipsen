@@ -13,6 +13,7 @@ class Bimbingan extends REST_Controller {
         $this->load->database();
         $this->load->model('BimbinganModel');
         $this->load->model('M_guru');
+        $this->load->model('SiswaModel');
         $this->load->model('NotifikasiModel');
     }
 
@@ -162,22 +163,49 @@ class Bimbingan extends REST_Controller {
       if($siswa != null){
         $bimbingan = $this->BimbinganModel->getBimbinganByNIS($nis);
 
+        $sudahDibalas = array();
+        $belumDibalas = array();
+
+        foreach($bimbingan as $bimbing){
+          if($bimbing->saran == null){
+            $belumDibalas[] = $bimbing;
+          }else{
+            $sudahDibalas[] = $bimbing;
+          }
+        }
+
         $this->response([
-            'bimbingan'   => $bimbingan
+            'sudahDibalas' => $sudahDibalas,
+            'belumDibalas' => $belumDibalas
         ], 200);
       }else{
         $this->response([
-            'bimbingan'   => []
+            []
         ], 200);
       }
     }
 
-    function getBimbingan_post(){
+    function getBimbingan_get(){
       $bimbingan = $this->BimbinganModel->getBimbingan();
 
+      $sudahDibalas = array();
+      $belumDibalas = array();
+
+      foreach($bimbingan as $bimbing){
+        $siswa = $this->SiswaModel->getSiswaByNIS2($bimbing->NIS);
+        $bimbing->siswa = $siswa;
+        if($bimbing->saran == null){
+          $belumDibalas[] = $bimbing;
+        }else{
+          $sudahDibalas[] = $bimbing;
+        }
+      }
+
       $this->response([
-          'bimbingan'   => $bimbingan
+          'sudahDibalas' => $sudahDibalas,
+          'belumDibalas' => $belumDibalas
       ], 200);
+
     }
 
 }

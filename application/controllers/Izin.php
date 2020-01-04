@@ -9,11 +9,10 @@ class Izin extends CI_Controller
     $this->load->model('IzinModel');
   }
 
-  public function index()
+  function index()
   {
-    $data['menu'] = 'wali';
-    $data['izin'] = $this->IzinModel->getAll();
-
+    $data['menu'] = 'izin';
+    $data["izin"] = $this->IzinModel->getIzin();
     $this->load->view('admin/izin/index', $data);
   }
 

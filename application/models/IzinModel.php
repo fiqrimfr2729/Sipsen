@@ -8,6 +8,11 @@ class IzinModel extends CI_Model {
         $this->load->model('SiswaModel');
   }
 
+  public function getIzin(){
+    $query = $this->db->from('tb_izin')->get()->result();
+    return $query;
+  }
+
   public function insertIzin($izin){
     $this->db->insert('tb_izin', $izin);
 
