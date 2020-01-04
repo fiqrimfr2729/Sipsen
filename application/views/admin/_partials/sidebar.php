@@ -23,6 +23,10 @@
         <a href="<?php echo base_url(''); ?>wali"><span class="fa fa-users"></span> Wali</a>
       </li>
 
+      <li class="<?php if ($menu == 'izin') echo 'active'; ?> ripple">
+        <a href="<?php echo base_url(''); ?>izin"><span class="fa fa-users"></span> Izin</a>
+      </li>
+
       <li class="<?php if ($menu == 'kelas') echo 'active'; ?> ripple">
         <a href="<?php echo base_url(''); ?>kelas"><span class="fa fa-building"></span> Kelas</a>
       </li>

@@ -7,6 +7,12 @@ class Izin extends CI_Controller {
         $this->load->model('IzinModel');
   }
 
+  function index(){
+    $data['menu'] = 'izin';
+		$data["izin"] = $this->IzinModel->getIzin();
+		$this->load->view('admin/izin/index', $data);
+  }
+
   function konfirmasiIzin(){
     $this->IzinModel->konfirmasiIzin(2);
     echo "berhasil";
