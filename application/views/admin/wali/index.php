@@ -78,7 +78,7 @@
     <?php foreach ($wali as $walii) : ?>
       <!-- MODAL Detail -->
 
-      <div class="modal fade" id="modalFormDetail<?php echo $walii->id_wali ?>" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-labelledby="largeModal" aria-hidden="true">
+      <div class="modal fade" id="modalFormDetail<?php echo $walii->id_wali; ?>" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-labelledby="largeModal" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -102,9 +102,9 @@
                   <label for="email">Email :</label>
                   <input type="text" class="form-control" id="email" name="email" value="<?php echo $walii->email; ?>" placeholder="<?php echo $walii->email; ?>" readonly />
                 </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                </div>
               </form>
             </div>
           </div>
@@ -148,7 +148,6 @@
           </div>
         </div>
       </div>
-
     <?php endforeach; ?>
 
     <!-- end: content -->

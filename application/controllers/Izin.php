@@ -16,6 +16,27 @@ class Izin extends CI_Controller
     $this->load->view('admin/izin/index', $data);
   }
 
+  //WEB
+  //funcion meng edit data izin
+  public function edit()
+  {
+    $id_izin = $this->input->post('id_izin');
+    $status = $this->input->post('status');
+    $this->IzinModel->edit($id_izin, $status);
+    redirect('izin');
+  }
+
+  public function delete($id_izin = null)
+  {
+    $id_izin = $this->input->post('id_izin');
+    $this->IzinModel->delete($id_izin);
+    redirect('izin');
+  }
+
+
+
+  //MOBILE
+
   function konfirmasiIzin()
   {
     $this->IzinModel->konfirmasiIzin(2);
