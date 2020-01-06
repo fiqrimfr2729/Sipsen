@@ -50,15 +50,15 @@
                   <tbody>
                     <?php
                     foreach ($kelas as $kelass) :
-                      ?>
+                    ?>
                       <tr>
                         <td><?php echo $kelass->id_kelas; ?></td>
                         <td><?php echo $kelass->tingkat;
-                              echo " ";
-                              echo $kelass->id_jurusan->singkatan;
-                              echo " ";
-                              echo $kelass->nama;
-                              ?></td>
+                            echo " ";
+                            echo $kelass->id_jurusan->singkatan;
+                            echo " ";
+                            echo $kelass->nama;
+                            ?></td>
 
                         <td><?php echo $kelass->id_jurusan->nama_jurusan; ?></td>
                         <td><?php echo $kelass->kd_alat; ?></td>
@@ -94,65 +94,6 @@
   <?php $this->load->view("admin/_partials/js.php") ?>
   <!-- end: Javascript -->
 
-  <!-- MODAL TAMBAH DATA JURUSAN -->
-
-
-  <div class="modal fade" id="modalAddFormKelas" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-labelledby="largeModal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="myModalLabel">Tambah Data Kelas</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="<?php echo base_url('') ?>kelas/addKelas" method="post">
-
-            <div class="form-group">
-              <label for="Nama Jurusan">Id Jurusan</label>
-              <span id="pesan" class="error"></span></p>
-              <!-- <input type="text" class="form-control" id="id_jurusan" name="id_jurusan" placeholder="Masukkan Id Jurusan Baru" required /> -->
-              <select name="id_jurusan" id="id_jurusan" class="form-control">
-                <?php
-                echo '<option value="">PILIH JURUSAN</option>';
-                foreach ($jurusan as $jurusans) {
-                  echo '<option value="' . $jurusans->id_jurusan . '"  name="id_jurusan" placeholder="' . $jurusans->id_jurusan . '">' . $jurusans->nama_jurusan . '</option>';
-                }
-                ?>
-              </select>
-
-            </div>
-
-            <div class="form-group">
-              <label for="Nama Tingkat">Tingkat</label>
-              <span id="pesan" class="error"></span></p>
-              <input type="text" class="form-control" id="tingkat" name="tingkat" placeholder="Masukkan Tingkat Baru" required />
-            </div>
-
-            <div class="form-group">
-              <label for="Nama">Nama</label>
-              <span id="pesan" class="error"></span></p>
-              <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama Baru" required />
-            </div>
-
-            <div class="form-group">
-              <label for="Nama">Kode Alat</label>
-              <span id="pesan" class="error"></span></p>
-              <input type="text" class="form-control" id="kd_alat" name="kd_alat" placeholder="Masukkan Kode Alat Baru" required />
-            </div>
-
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-          <button type="submit" class="btn btn-primary">Masukan</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
   <!-- MODAL HAPUS DATA -->
 
@@ -180,10 +121,11 @@
     </div>
   <?php endforeach; ?>
 
-  <!-- MODAL EDIT -->
+
 
   <?php foreach ($kelas as $kelass) : ?>
 
+    <!-- MODAL EDIT -->
     <div class="modal fade" id="modalEditKelas<?php echo $kelass->id_kelas; ?>" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-labelledby="largeModal" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
