@@ -39,6 +39,10 @@
         <a href="<?php echo base_url(''); ?>Izin"><span class="fa fa-book"></span> Izin</a>
       </li>
 
+      <li class="ripple">
+        <a href="<?php echo base_url(''); ?>Libur"><span class="fa fa-book"></span> Libur</a>
+      </li>
+
     </ul>
   </div>
 </div>
