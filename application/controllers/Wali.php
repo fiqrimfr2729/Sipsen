@@ -16,6 +16,8 @@ class Wali extends CI_Controller
 	{
 		$data['menu'] = 'wali';
 		$data['wali'] = $this->WaliModel->getAll();
+		$data['kelas'] = $this->M_kelas->getAll();
+		$data['siswa'] = $this->M_siswa->getAll();
 
 		$this->load->view('admin/wali/index', $data);
 	}
@@ -43,6 +45,24 @@ class Wali extends CI_Controller
 		//$passwordx = md5($password);
 		$this->WaliModel->simpan($username, $no_hp, $email, $nama, $password);
 		redirect('wali');
+	}
+
+	public function listSiswa()
+	{
+		// Ambil data ID kelas yang dikirim via ajax post
+		$id_kelas = $this->input->post('id_kelas');
+		$siswa = $this->M_siswa->getByKelas($id_kelas);
+		// Buat variabel untuk menampung tag-tag option nya
+		// Set defaultnya dengan tag option Pilih
+		$lists = "<option value=''>Pilih</option>";
+		$siswa = $this->M_siswa->getAll();
+		foreach ($siswa as $data) {
+			$lists .= "<option value='" . $data->NIS . "'>" . $data->nama_siswa . "</option>"; // Tambahkan tag option ke variabel $lists
+		}
+
+		$callback = array('list_siswa' => $lists); // Masukan variabel lists tadi ke dalam array $callback dengan index array : list_kota
+		echo json_encode($callback); // konversi varibael $callback menjadi JSON
+
 	}
 
 

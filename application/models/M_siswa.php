@@ -22,6 +22,13 @@ class M_siswa extends CI_Model
         return $kelas;
     }
 
+    public function getByKelas($id_kelas)
+    {
+        $this->db->where('id_kelas', $id_kelas);
+        $result = $this->db->get('tb_siswa')->result(); // Tampilkan semua data siswa berdasarkan id kelas
+        return $result;
+    }
+
     public function simpan($NIS, $NISN, $nama, $jk, $id_kelas, $tgl_lahir, $no_hp, $email, $alamat, $nama_ayah, $nama_ibu, $id_fp, $password)
     {
         $data = array(
