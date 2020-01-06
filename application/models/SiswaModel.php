@@ -24,7 +24,7 @@ class SiswaModel extends CI_Model {
   }
 
   public function getSiswaByKelas($idKelas){
-    $siswa = $this->db->where('id_kelas', $idKelas)->from('tb_siswa')->get()->result();
+    $siswa = $this->db->where('id_kelas', $idKelas)->from('tb_siswa')->order_by('nama_siswa', 'ASC')->get()->result();
 
     return $siswa;
   }

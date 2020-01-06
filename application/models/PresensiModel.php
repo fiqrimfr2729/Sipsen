@@ -167,4 +167,11 @@ class PresensiModel extends CI_Model {
     return $query;
   }
 
+  function getRekapPresensi($nis, $tanggal){
+    $this->db->where("DATE_FORMAT(tanggal,'%Y-%m-%d')", $tanggal)->where('nis', $nis)->from('tb_presensi');
+    $presensi = $this->db->get()->row();
+
+    return $presensi;
+  }
+
 }

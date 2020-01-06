@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH');
 
+require('./application/third_party/phpoffice/vendor/autoload.php');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Presensi extends CI_Controller{
   function __construct() {
     parent::__construct();
@@ -11,6 +16,7 @@ class Presensi extends CI_Controller{
         $this->load->model('LiburModel');
         $this->load->model('AntrianSiswaModel');
         $this->load->model('JamModel');
+        $this->load->model('SiswaModel');
   }
 
   function insertSiswaTidakHadir(){
@@ -217,6 +223,240 @@ class Presensi extends CI_Controller{
     );
 
     echo var_dump($data);
+  }
+
+  function rekap(){
+    include APPPATH.'third_party/PHPExcel/PHPExcel.php';
+
+    // Panggil class PHPExcel nya
+    $excel = new PHPExcel();
+    // Settingan awal fil excel
+    $excel->getProperties()->setCreator('M-AFI TEAM')
+                 ->setLastModifiedBy('M-AFI TEAM')
+                 ->setTitle("Rekap Absensi Siswa")
+                 ->setSubject("Rekap Absensi Siswa")
+                 ->setDescription("Rekap Absensi Siswa")
+                 ->setKeywords("Rekap Absensi Siswa");
+// Buat sebuah variabel untuk menampung pengaturan style dari header tabel
+    $style_col = array(
+      'font' => array('bold' => true), // Set font nya jadi bold
+      'alignment' => array(
+        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
+        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
+      ),
+      'borders' => array(
+        'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
+        'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
+        'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
+        'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
+      )
+    );
+    // Buat sebuah variabel untuk menampung pengaturan style dari isi tabel
+    $style_row = array(
+      'alignment' => array(
+        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
+      ),
+      'borders' => array(
+        'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
+        'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
+        'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
+        'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
+      )
+    );
+    $excel->setActiveSheetIndex(0)->setCellValue('A1', "Rekap Absensi Siswa"); // Set kolom A1 dengan tulisan "Rekap Absensi"
+    $excel->getActiveSheet()->mergeCells('A1:AJ1'); // Set Merge Cell pada kolom A1 sampai E1
+    $excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE); // Set bold kolom A1
+    $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(15); // Set font size 15 untuk kolom A1
+    $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Set text center untuk kolom A1
+    // Buat header tabel nya pada baris ke 3
+    $excel->setActiveSheetIndex(0)->setCellValue('A3', "BULAN"); // Set kolom A3 dengan tulisan "NO"
+    $excel->getActiveSheet()->mergeCells('A3:AJ3'); // Set Merge Cell pada kolom A1 sampai E1
+    $excel->getActiveSheet()->getStyle('A3')->getFont()->setBold(TRUE); // Set bold kolom A1
+    $excel->getActiveSheet()->getStyle('A3')->getFont()->setSize(15); // Set font size 15 untuk kolom A1
+    $excel->getActiveSheet()->getStyle('A3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Set text center untuk kolom A1
+    $excel->setActiveSheetIndex(0)->setCellValue('A4', "NAMA"); // Set kolom B3 dengan tulisan "NIS"
+    $excel->getActiveSheet()->mergeCells('A4:A5');
+    $excel->setActiveSheetIndex(0)->setCellValue('A1', "Rekap Absensi Siswa"); // Set kolom A1 dengan tulisan "Rekap Absensi"
+    $excel->getActiveSheet()->mergeCells('A1:AJ1'); // Set Merge Cell pada kolom A1 sampai E1
+    $excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE); // Set bold kolom A1
+    $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(15); // Set font size 15 untuk kolom A1
+    $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Set text center untuk kolom A1
+
+    // Apply style header yang telah kita buat tadi ke masing-masing kolom header
+    $excel->getActiveSheet()->getStyle('A3:AK3')->applyFromArray($style_col);
+    $excel->getActiveSheet()->getStyle('A4')->applyFromArray($style_col);
+    // Panggil function view yang ada di SiswaModel untuk menampilkan semua data siswanya
+
+    //Post
+    // $tahun = $this->input->post('tahun');
+    // $bulan = $this->input->post('bulan');
+    $tahun = 2019;
+    $bulan = 8;
+    $jml = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
+    $tanggal=1;
+    $i=4;
+    $j='B';
+    //untuk menampilkan tanggal pada excel
+    while($tanggal <= $jml){
+      $temp = $i+1;
+      $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "$tanggal");
+      $excel->getActiveSheet()->mergeCells("$j$i:$j$temp");
+      $excel->getActiveSheet()->getStyle("$j$i:$j$temp")->applyFromArray($style_col);
+      $j++;
+      $tanggal++;
+    }
+    $temp=$j;
+    $temp++;$temp++;$temp++;$temp++;
+    $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "Total");
+    $excel->getActiveSheet()->mergeCells("$j$i:$temp$i");
+    $excel->getActiveSheet()->getStyle("$j$i:$temp$i")->applyFromArray($style_col);
+
+    $i++;
+    $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "S");
+    $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_col);
+    $j++;
+    $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "TH");
+    $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_col);
+    $j++;
+    $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "K");
+    $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_col);
+    $j++;
+    $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "I");
+    $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_col);
+    $j++;
+    $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "S");
+    $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_col);
+
+    $i=6;
+    $siswas = $this->SiswaModel->getSiswaByKelas(1);
+    foreach ($siswas as $siswa) {
+      $j='A';
+      $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_row);
+      $excel->setActiveSheetIndex(0)->setCellValue("$j$i", $siswa->nama_siswa);
+      $tanggal=1;
+
+      $H=0;$TH=0;$K=0;$I=0;$S=0;
+      while($tanggal <= $jml){
+        $j++;
+        //get presensi berdasarkan nis dan Tanggal
+        $b=$this->number($bulan);
+        $t=$this->number($tanggal);
+        $presensi = $this->PresensiModel->getRekapPresensi($siswa->NIS, "$tahun-$b-$t");
+        if($presensi != null){
+          if($presensi->id_jenis_presensi == '1' ){
+            $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "H");
+            $H++;
+          }elseif ($presensi->id_jenis_presensi == '2') {
+            $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "TH");
+            $TH++;
+          }elseif ($presensi->id_jenis_presensi == '3') {
+            $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "K");
+            $K++;
+          }elseif ($presensi->id_jenis_presensi == '4') {
+            $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "I");
+            $I++;
+          }else{
+            $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "S");
+            $S++;
+          }
+        }
+
+        $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_col);
+        $tanggal++;
+      }
+
+      $j++;
+      $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "$H");
+      $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_col);
+      $j++;
+      $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "$TH");
+      $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_col);
+      $j++;
+      $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "$K");
+      $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_col);
+      $j++;
+      $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "$I");
+      $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_col);
+      $j++;
+      $excel->setActiveSheetIndex(0)->setCellValue("$j$i", "$S");
+      $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_col);
+
+      $i++;
+    }
+
+      // Set width kolom
+    $excel->getActiveSheet()->getColumnDimension('A')->setWidth(25); // Set width kolom A
+    $excel->getActiveSheet()->getColumnDimension('B')->setWidth(3); // Set width kolom B
+    $excel->getActiveSheet()->getColumnDimension('C')->setWidth(3); // Set width kolom C
+    $excel->getActiveSheet()->getColumnDimension('D')->setWidth(3); // Set width kolom D
+    $excel->getActiveSheet()->getColumnDimension('E')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('F')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('G')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('H')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('I')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('J')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('K')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('L')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('M')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('N')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('O')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('P')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('Q')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('R')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('S')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('T')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('P')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('U')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('V')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('W')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('X')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('Y')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('Z')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('AA')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('AB')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('AC')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('AD')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('AE')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('AF')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('AG')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('AH')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('AI')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('AJ')->setWidth(3); // Set width kolom E
+    $excel->getActiveSheet()->getColumnDimension('AK')->setWidth(3); // Set width kolom E
+
+    // Set height semua kolom menjadi auto (mengikuti height isi dari kolommnya, jadi otomatis)
+    $excel->getActiveSheet()->getDefaultRowDimension()->setRowHeight(-1);
+    // Set orientasi kertas jadi LANDSCAPE
+    $excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+    // Set judul file excel nya
+    $excel->getActiveSheet(0)->setTitle("Rekap Absensi Siswa");
+    $excel->setActiveSheetIndex(0);
+    // Proses file excel
+    $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+    ob_end_clean();
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment; filename="Rekap Absensi Siswa.xlsx"'); // Set nama file excel nya
+    header('Cache-Control: max-age=0');
+
+    $write->save('php://output');
+  }
+
+  function test(){
+    $tahun = 2020;
+    $bulan = 01;
+    $tanggal = 01;
+    $b=$this->number($bulan);
+    $t=$this->number($tanggal);
+    $siswa = $this->PresensiModel->getRekapPresensi('12345678', "$tahun-$b-$t");
+    echo var_dump($siswa);
+  }
+
+  function number($num){
+    if($num<10){
+      return "0$num";
+    }else{
+      return "$num";
+    }
   }
 
 }
