@@ -66,7 +66,7 @@ class Guru extends CI_Controller
 	public function resetPWD()
 	{
 		$NUPTK = $this->input->post('NUPTK');
-		$password = "guru123";
+		$password = "Guru123";
 		$passwordx = password_hash($password, PASSWORD_DEFAULT);
 		$this->M_guru->resetPeWD($NUPTK, $passwordx);
 		redirect('guru');

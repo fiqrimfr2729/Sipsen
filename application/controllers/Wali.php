@@ -40,10 +40,11 @@ class Wali extends CI_Controller
 		$no_hp = $this->input->post('no_hp');
 		$email = $this->input->post('email');
 		$nama = $this->input->post('nama');
-		$passwordx = "wali123";
+		$nis = $this->input->post('siswa');
+		$passwordx = "Wali123";
 		$password = password_hash($passwordx, PASSWORD_DEFAULT);
 		//$passwordx = md5($password);
-		$this->WaliModel->simpan($username, $no_hp, $email, $nama, $password);
+		$this->WaliModel->simpan($username, $no_hp, $email, $nama, $password, $nis);
 		redirect('wali');
 	}
 

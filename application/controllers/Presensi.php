@@ -17,6 +17,13 @@ class Presensi extends CI_Controller{
         $this->load->model('AntrianSiswaModel');
         $this->load->model('JamModel');
         $this->load->model('SiswaModel');
+        $this->load->model('M_kelas');
+  }
+
+  function index(){
+    $data['menu'] = 'presensi';
+		//$data["prese"] = $this->M_jurusan->getAll();
+		$this->load->view('admin/presensi/index', $data);
   }
 
   function insertSiswaTidakHadir(){
@@ -80,6 +87,45 @@ class Presensi extends CI_Controller{
     }
     echo "berhasil";
   }
+
+  function getBulan(){
+    $semester = $this->input->post('semester');
+    if($semester%2==0){
+      $data = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni'];
+    }else{
+      $data = ['Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    }
+    echo json_encode($data);
+  }
+
+  function getSemester(){
+		$id_kelas = $this->input->post('id_kelas');
+    //$id_kelas = '1';
+		$kelas = $this->M_kelas->getKelasByID($id_kelas);
+		$bulan = date('m');
+		if($kelas->tingkat == "XII"){
+			if($bulan == "01" || $bulan == "02" || $bulan == "03" || $bulan == "04" || $bulan == "05" || $bulan == "06"){
+        $data = ['1','2','3','4','5','6'];
+			}else{
+        $data = ['1','2','3','4','5'];
+      }
+		}elseif($kelas->tingkat == "XI"){
+      if($bulan == "01" || $bulan == "02" || $bulan == "03" || $bulan == "04" || $bulan == "05" || $bulan == "06"){
+        $data = ['1','2','3','4'];
+			}else{
+        $data = ['1','2','3'];
+      }
+    }else{
+      if($bulan == "01" || $bulan == "02" || $bulan == "03" || $bulan == "04" || $bulan == "05" || $bulan == "06"){
+        $data = ['1', '2'];
+			}else{
+        $data = ['1'];
+      }
+    }
+    // $this->load->view('admin/presensi/index', $data);
+    // //echo var_dump($data);
+    echo json_encode($data);
+	}
 
   public function notifPresensi(){
     date_default_timezone_set("Asia/Jakarta");
@@ -227,12 +273,16 @@ class Presensi extends CI_Controller{
 
   function rekap(){
     include APPPATH.'third_party/PHPExcel/PHPExcel.php';
+    $semester = (int)$this->input->post('semester');
+    $bulan = (int)$this->input->post('bulan');
+    $id_kelas = $this->input->post('kelas');
+    $kelas = $this->M_kelas->getNamaKelasByID($id_kelas);
 
     // Panggil class PHPExcel nya
     $excel = new PHPExcel();
     // Settingan awal fil excel
-    $excel->getProperties()->setCreator('M-AFI TEAM')
-                 ->setLastModifiedBy('M-AFI TEAM')
+    $excel->getProperties()->setCreator('Sipsen')
+                 ->setLastModifiedBy('Sipsen')
                  ->setTitle("Rekap Absensi Siswa")
                  ->setSubject("Rekap Absensi Siswa")
                  ->setDescription("Rekap Absensi Siswa")
@@ -276,7 +326,7 @@ class Presensi extends CI_Controller{
     $excel->getActiveSheet()->getStyle('A3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Set text center untuk kolom A1
     $excel->setActiveSheetIndex(0)->setCellValue('A4', "NAMA"); // Set kolom B3 dengan tulisan "NIS"
     $excel->getActiveSheet()->mergeCells('A4:A5');
-    $excel->setActiveSheetIndex(0)->setCellValue('A1', "Rekap Absensi Siswa"); // Set kolom A1 dengan tulisan "Rekap Absensi"
+    $excel->setActiveSheetIndex(0)->setCellValue('A1', "Rekap Absensi Siswa Kelas $kelas"); // Set kolom A1 dengan tulisan "Rekap Absensi"
     $excel->getActiveSheet()->mergeCells('A1:AJ1'); // Set Merge Cell pada kolom A1 sampai E1
     $excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE); // Set bold kolom A1
     $excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(15); // Set font size 15 untuk kolom A1
@@ -288,10 +338,19 @@ class Presensi extends CI_Controller{
     // Panggil function view yang ada di SiswaModel untuk menampilkan semua data siswanya
 
     //Post
-    // $tahun = $this->input->post('tahun');
-    // $bulan = $this->input->post('bulan');
-    $tahun = 2019;
-    $bulan = 8;
+
+    $tahun = $this->getTahun($semester, $id_kelas);
+    if($semester%2 == 0){
+      $bulan++;
+    }else{
+      $bulan+=7;
+    }
+
+    $namaBulan = $this->getNamaBulan($bulan);
+    $excel->setActiveSheetIndex(0)->setCellValue('A3', "Bulan $namaBulan");
+
+    // $tahun = 2019;
+    // $bulan = 8;
     $jml = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
     $tanggal=1;
     $i=4;
@@ -328,7 +387,7 @@ class Presensi extends CI_Controller{
     $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_col);
 
     $i=6;
-    $siswas = $this->SiswaModel->getSiswaByKelas(1);
+    $siswas = $this->SiswaModel->getSiswaByKelas($id_kelas);
     foreach ($siswas as $siswa) {
       $j='A';
       $excel->getActiveSheet()->getStyle("$j$i")->applyFromArray($style_row);
@@ -441,14 +500,81 @@ class Presensi extends CI_Controller{
     $write->save('php://output');
   }
 
+  function getNamaBulan($bulan){
+    $data = ['Januari', 'Februari', 'Maret', 'April', 'Mei',
+    'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+    return $data[$bulan-1];
+  }
+
   function test(){
-    $tahun = 2020;
-    $bulan = 01;
-    $tanggal = 01;
-    $b=$this->number($bulan);
-    $t=$this->number($tanggal);
-    $siswa = $this->PresensiModel->getRekapPresensi('12345678', "$tahun-$b-$t");
-    echo var_dump($siswa);
+    $semester = (int)$this->input->post('semester');
+    $bulan = (int)$this->input->post('bulan');
+    $id_kelas = $this->input->post('kelas');
+
+    $tahun = $this->getTahun($semester, $id_kelas);
+
+    if($semester%2 == 0){
+      $bulan++;
+    }else{
+      $bulan+=7;
+    }
+
+    echo var_dump($bulan);
+    echo var_dump($tahun);
+    // echo var_dump($bulan);
+    // echo var_dump($id_kelas);
+  }
+
+  function getTahun($semester, $id_kelas){
+    $kelas = $this->M_kelas->getKelasByID($id_kelas);
+    $tahunSekarang = (int)date('Y');
+    $bulanSekarang = (int)date('m');
+
+    $tahun;
+    if($kelas->tingkat == "XII" && $bulanSekarang < 7){
+      if($semester == 6){
+        $tahun = $tahunSekarang;
+      }elseif ($semester == 5 || $semester == 4) {
+        $tahun = $tahunSekarang-1;
+      }elseif ($semester == 3 || $semester == 2) {
+        $tahun = $tahunSekarang-2;
+      }else{
+        $tahun = $tahunSekarang-3;
+      }
+    }elseif ($kelas->tingkat == "XII" && $bulanSekarang > 6) {
+      if ($semester == 5 || $semester == 4) {
+        $tahun = $tahunSekarang;
+      }elseif ($semester == 3 || $semester == 2) {
+        $tahun = $tahunSekarang-1;
+      }else{
+        $tahun = $tahunSekarang-2;
+      }
+    }elseif ($kelas->tingkat == "XI" && $bulanSekarang < 7) {
+      if ($semester == 4) {
+        $tahun = $tahunSekarang;
+      }elseif ($semester == 3 || $semester == 2) {
+        $tahun = $tahunSekarang-1;
+      }else{
+        $tahun = $tahunSekarang-2;
+      }
+    }elseif ($kelas->tingkat == "XI" && $bulanSekarang > 6) {
+      if ($semester == 3 || $semester == 2) {
+        $tahun = $tahunSekarang;
+      }else{
+        $tahun = $tahunSekarang-1;
+      }
+    }elseif ($kelas->tingkat == "X" && $bulanSekarang < 7) {
+      if ($semester == 2) {
+        $tahun = $tahunSekarang;
+      }else{
+        $tahun = $tahunSekarang-1;
+      }
+    }else{
+      $tahun = $tahunSekarang;
+    }
+
+    return $tahun;
   }
 
   function number($num){

@@ -21,8 +21,7 @@ class Izin extends CI_Controller
   public function edit()
   {
     $id_izin = $this->input->post('id_izin');
-    $status = $this->input->post('status');
-    $this->IzinModel->edit($id_izin, $status);
+    $this->IzinModel->konfirmasiIzin($id_izin);
     redirect('izin');
   }
 

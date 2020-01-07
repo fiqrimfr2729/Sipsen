@@ -11,7 +11,7 @@
         <table id="" class="table table-striped table-bordered display" width="100%" cellspacing="0">
           <thead>
             <th width="5%">No</th>
-            <th width="30%">Nama</th>
+            <th width="25%">Nama</th>
             <th>NUPTK</th>
             <th>Email</th>
             <th>No HP</th>

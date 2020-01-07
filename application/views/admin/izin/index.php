@@ -60,7 +60,10 @@
                                                     if ($izinn->status == "0")
                                                         echo "Belum Dikonfirmasi";
                                                     else echo "Sudah Dikonfirmasi"; ?></td>
-                                                <td><?php echo $izinn->jenis_izin; ?></td>
+                                                <td><?php
+                                                    if ($izinn->jenis_izin == "4")
+                                                        echo "Izin";
+                                                    else echo "Sakit"; ?></td>
                                                 <td>
                                                     <a data-target="#modalFormDetail<?php echo $izinn->id_izin ?>" data-toggle="modal" class=" btn ripple-infinite btn-info" data-placement="top" title="Detail"><span class="fas fa-list"></span></a>
                                                     <a data-target="#modalFormEdit1<?php echo $izinn->id_izin ?>" data-toggle="modal" class=" btn  ripple-infinite btn-primary" data-placement="top" title="Ubah"><span class="fas fa-edit"></span></a>
@@ -133,13 +136,14 @@
                                     <label for="NIS">NIS : <input name="NIS" value="<?php echo $izinn->NIS; ?>" class="form-control" type="text" placeholder="<?php echo $izinn->NIS; ?>" readonly></label>
                                 </div>
                                 <div class="form-group">
-                                    <label for="tgl_mulai">Tanggal Mulai : <input name="tgl_mulai" value="<?php echo $izinn->tgl_mulai; ?>" class="form-control" type="text" placeholder="<?php echo $izinn->tgl_mulai; ?>" readonly></label>
+                                    <label for="tgl_mulai">Tanggal : <input name="tgl_mulai" value="<?php echo $izinn->tgl_mulai; ?>" class="form-control" type="text" placeholder="<?php echo $izinn->tgl_mulai; ?>" readonly></label>
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="tgl_selesai">Tanggal Selesai: <input name="tgl_selesai" value="<?php echo $izinn->tgl_selesai; ?>" class="form-control" type="text" placeholder="<?php echo $izinn->tgl_selesai; ?>" readonly></label>
-                                </div>
-                                <div class="form-group">
-                                    <label for="jenis_izin">jenis izin : <input name="jenis_izin" value="<?php echo $izinn->jenis_izin; ?>" class="form-control" type="text" placeholder="<?php echo $izinn->jenis_izin; ?>" readonly></label>
+                                    <label for="jenis_izin">Jenis : <input name="jenis_izin" value="<?php
+                                        if ($izinn->jenis_izin == "4")
+                                            echo "Izin";
+                                        else echo "Sakit"; ?>" class="form-control" type="text" placeholder="<?php echo $izinn->jenis_izin; ?>" readonly></label>
                                 </div>
                                 <div class="form-group">
                                     <label for="Bukti">Bukti : <br><br>
@@ -150,7 +154,10 @@
                                     <label for="tanggal_dikirim">Tanggal Dikirim : <input name="tanggal_dikirim" value="<?php echo $izinn->tanggal_dikirim; ?>" class="form-control" type="text" placeholder="<?php echo $izinn->tanggal_dikirim; ?>" readonly></label>
                                 </div>
                                 <div class="form-group">
-                                    <label for="status">Status : <input name="status" value="<?php echo $izinn->status; ?>" class="form-control" type="text" placeholder="<?php echo $izinn->status; ?>" readonly></label>
+                                    <label for="status">Status : <input name="status" value="<?php
+                                        if ($izinn->status == "0")
+                                            echo "Belum Dikonfirmasi";
+                                        else echo "Sudah Dikonfirmasi"; ?>" class="form-control" type="text" placeholder="<?php echo $izinn->status; ?>" readonly></label>
                                 </div>
                                 <div class="form-group">
                                     <label for="keterangan">Keterangan : <input name="keterangan" value="<?php echo $izinn->keterangan; ?>" class="form-control" type="text" placeholder="<?php echo $izinn->keterangan; ?>" readonly></label>

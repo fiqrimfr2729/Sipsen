@@ -17,13 +17,92 @@
 <script src="<?php echo base_url(''); ?>asset/js/plugins/jquery.validate.min.js"></script>
 <script src="<?php echo base_url(''); ?>asset/js/plugins/jquery.knob.js"></script>
 <script src="<?php echo base_url(''); ?>asset/js/plugins/jquery.mask.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.remote.js"></script>
 
 
 <!-- custom -->
 <script src="<?php echo base_url(''); ?>asset/js/main.js"></script>
 
-<!--data table-->
+
 <script type="text/javascript">
+  $(document).ready(function(){
+      $('#kelasSiswa').change(function(){
+          var id=$(this).val();
+          $.ajax({
+              url : "<?php echo base_url("/index.php/siswa/getSiswaByKelas");?>",
+              method : "POST",
+              data : {id_kelas: id},
+              async : false,
+              dataType : 'json',
+              success: function(data){
+                  var html = '';
+                  var i;
+                  html += '<option value>'+'Pilih Siswa'+'</option>';
+                  for(i=0; i<data.length; i++){
+                      html += '<option value='+data[i].NIS+'>'+data[i].nama_siswa+'</option>';
+                  }
+                  $('#siswa').html(html);
+
+              }
+          });
+      });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+      $('#kelas').change(function(){
+        $('#semester').show();
+          var id=$(this).val();
+          $.ajax({
+              url : "<?php echo base_url("getSemester");?>",
+              method : "POST",
+              data : {id_kelas: id},
+              async : false,
+              dataType : 'json',
+              success: function(data){
+                  var html = '';
+                  var i;
+                  html += '<option value>'+'Pilih Semester'+'</option>';
+                  for(i=0; i<data.length; i++){
+                      html += '<option value='+data[i]+'>'+'Semester '+data[i]+'</option>';
+                  }
+                  $('.semester').html(html);
+
+              }
+          });
+      });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      $('#semester').change(function(){
+          var id=$(this).val();
+          $.ajax({
+              url : "<?php echo base_url("getBulan");?>",
+              method : "POST",
+              data : {semester: id},
+              async : false,
+              dataType : 'json',
+              success: function(data){
+                  var html = '';
+                  var i;
+                  html += '<option value>'+'Pilih Bulan'+'</option>';
+                  for(i=0; i<data.length; i++){
+                      html += '<option value='+i+'>'+data[i]+'</option>';
+                  }
+                  $('#bulan').html(html);
+
+              }
+          });
+      });
+  });
+</script>
+
+<!--data table-->
+<script >
   $(document).ready(function() {
     $('#datatable').DataTable();
   });
@@ -143,8 +222,8 @@
     $('.mask-cep').mask('00000-000');
     $('.mask-phone').mask('0000-0000');
     $('.mask-phone_with_ddd').mask('(00) 0000-0000');
-    $('.mask-phone').mask('0000-0000-00000');
-    $('.mask-number').mask('0000000');
+    $('.mask-phone').mask('0000000000000');
+    $('.mask-number').mask('0000000000');
     $('.mask-cpf').mask('000.000.000-00', {
       reverse: true
     });

@@ -11,8 +11,8 @@
         <table id="" class="table table-striped table-bordered display" width="100%" cellspacing="0">
           <thead>
             <th width="5%">No</th>
-            <th width="30%">Nama</th>
-            <th>NIP</th>
+            <th width="25%">Nama</th>
+            <th>NUPTK</th>
             <th>Email</th>
             <th>No HP</th>
             <th>action</th>
@@ -23,8 +23,6 @@
 
               if ($gurus->status_bk == "1") :
                 ?>
-
-
                 <tr>
                   <td><?php echo $i;
                           $i++; ?></td>

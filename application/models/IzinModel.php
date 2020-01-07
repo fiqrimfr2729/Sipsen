@@ -12,7 +12,7 @@ class IzinModel extends CI_Model
 
   public function getIzin()
   {
-    $query = $this->db->from('tb_izin')->get()->result();
+    $query = $this->db->from('tb_izin')->order_by('tanggal_dikirim', 'desc')->get()->result();
     return $query;
   }
 
@@ -36,7 +36,7 @@ class IzinModel extends CI_Model
       ->where('tanggal', $izin->tgl_mulai)
       ->from('tb_presensi')->get()->row();
 
-    echo var_dump($presensi);
+    //echo var_dump($presensi);
     if ($presensi != null) {
       $this->db->set('id_jenis_presensi', $izin->jenis_izin);
       $this->db->where('id_presensi', $presensi->id_presensi);

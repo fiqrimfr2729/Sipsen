@@ -8,6 +8,7 @@ class Siswa extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model("M_siswa");
+		$this->load->model("SiswaModel");
 		$this->load->model("M_jurusan");
 		$this->load->model("M_kelas");
 	}
@@ -84,9 +85,16 @@ class Siswa extends CI_Controller
 	public function resetPWD()
 	{
 		$NIS = $this->input->post('NIS');
-		$password = "guru123";
+		$password = "Siswa123";
 		$passwordx = password_hash($password, PASSWORD_DEFAULT);
 		$this->M_siswa->resetPeWD($NIS, $passwordx);
 		redirect('siswa');
+	}
+
+	public function getSiswaByKelas(){
+		$id_kelas = $this->input->post('id_kelas');
+		//$id_kelas = '1';
+		$siswa = $this->SiswaModel->getSiswaNonWali($id_kelas);
+		echo json_encode($siswa);
 	}
 }

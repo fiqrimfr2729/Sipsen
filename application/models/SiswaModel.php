@@ -28,4 +28,10 @@ class SiswaModel extends CI_Model {
 
     return $siswa;
   }
+
+  public function getSiswaNonWali($idKelas){
+    $siswa = $this->db->where('id_kelas', $idKelas)->where('id_wali', null)->from('tb_siswa')->order_by('nama_siswa', 'ASC')->get()->result();
+
+    return $siswa;
+  }
 }

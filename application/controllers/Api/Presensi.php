@@ -59,18 +59,22 @@ class Presensi extends REST_Controller {
         //insert presensi
         $this->PresensiModel->presensiSiswa($siswa->NIS, 1, $date, $jam_sekarang_str, $keterlambatan);
         //$this->AntrianSiswaModel->insertToAntrian($nis);
-        $this->NotifikasiModel->notif($siswa->token, "Selamat datang di Sekolah");
+        if($siswa->token){
+          $this->NotifikasiModel->notif($siswa->token, "Selamat datang di Sekolah");
+        }
         $this->response([
             'atas' => 'Masuk, NIS:',
             'bawah' => "$nis"
         ], 200);
       }
-    }else if($jam_pulang <= $jam_sekarang || $jam_sekarang >= $jam_pulang+1800){
+    }else if($jam_pulang <= $jam_sekarang && $jam_sekarang <= $jam_pulang+1800){
       if($presensi->keluar == null){
         if($presensi->id_jenis_presensi != 2){
           $this->PresensiModel->presensiSiswaKeluar($presensi->id_presensi, $jam_sekarang_str);
           //$this->AntrianSiswaModel->insertToAntrian($nis);
-          $this->NotifikasiModel->notif($siswa->token, "Jangan lupa mengerjakan pr");
+          if($siswa->token != null){
+            $this->NotifikasiModel->notif($siswa->token, "Jangan lupa mengerjakan pr");
+          }
           $this->response([
               'atas' => 'Keluar, NIS:',
               'bawah' => "$nis"

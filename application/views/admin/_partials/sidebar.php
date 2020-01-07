@@ -31,8 +31,8 @@
         <a href="<?php echo base_url(''); ?>jurusan"><span class="fa fa-book"></span> Jurusan</a>
       </li>
 
-      <li class="ripple">
-        <a href="<?php echo base_url(''); ?>jurusan"><span class="fa fa-book"></span> Presensi</a>
+      <li class="<?php if ($menu == 'presensi') echo 'active'; ?> ripple">
+        <a href="<?php echo base_url(''); ?>presensi"><span class="fa fa-book"></span> Presensi</a>
       </li>
 
       <li class="ripple">

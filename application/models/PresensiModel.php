@@ -120,7 +120,16 @@ class PresensiModel extends CI_Model {
 
   //mengambil presensi siswa dari tb presensi berdasarkan nis
   public function getPresensiSiswa($nis){
-    $presensi = $this->db->where('nis',$nis)->from('tb_presensi')->get()->result();
+    $this->db->where('nis',$nis);
+    $month = (int)date('m');
+    if($month >= 1 && $month <=6){
+      $data = array('01', '02', '03', '04', '05', '06');
+      $this->db->where_in("DATE_FORMAT(tanggal,'%m') ", $data);
+    }else{
+      $data = array('07', '08', '09', '10', '11', '12');
+      $this->db->where_in("DATE_FORMAT(tanggal,'%m') ", $data);
+    }
+    $presensi = $this->db->from('tb_presensi')->get()->result();
 
     return $presensi;
   }

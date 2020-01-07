@@ -41,9 +41,9 @@
                   <thead>
                     <tr>
                       <th width="5%">No</th>
-                      <th width="25%">Nama Wali</th>
-                      <th width="25%">Username</th>
-                      <th>Nomor Hp</th>
+                      <th width="20%">Nama Wali</th>
+                      <th width="20%">Username</th>
+                      <th>Email</th>
                       <th>NIS Siswa</th>
                       <th>Aksi</th>
                     </tr>
@@ -56,7 +56,7 @@
                             $i++; ?></td>
                         <td><?php echo $walii->nama; ?></td>
                         <td><?php echo $walii->username; ?></td>
-                        <td><?php echo $walii->no_hp; ?></td>
+                        <td><?php echo $walii->email; ?></td>
                         <td><?php echo $walii->siswa->NIS ?></td>
                         <td align="center">
                           <a data-toggle="modal" data-target="#modalFormDetail<?php echo $walii->id_wali ?>" class=" btn ripple-infinite btn-info" data-placement="top" title="Detail"><span class="fas fa-list"></span></a>

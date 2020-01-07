@@ -22,9 +22,10 @@ class WaliModel extends CI_Model
     return $wali;
   }
 
-  public function simpan($username, $no_hp, $email, $nama, $password)
+  public function simpan($username, $no_hp, $email, $nama, $password, $nis)
   {
     $data = array(
+      'id_wali' => '',
       'username' => $username,
       'nama' => $nama,
       'no_hp' => $no_hp,
@@ -33,6 +34,13 @@ class WaliModel extends CI_Model
     );
 
     $this->db->insert('tb_wali', $data);
+
+    $id_wali = $this->db->insert_id();
+
+    $this->db->set('id_wali', $id_wali);
+    $this->db->where('NIS', $nis);
+    $this->db->from('tb_siswa');
+    $this->db->update();
     return true;
 
     //$hasil = $this->db->query("INSERT INTO tb_guru (NUPTK,nama,alamat,no_hp,email,jk,status_bk,password,token) VALUES ('$NUPTK','$nama','$alamat','$no_hp','$email','$jk','$status_bk','$password','$token')");

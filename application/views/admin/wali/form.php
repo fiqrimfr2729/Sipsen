@@ -49,6 +49,19 @@
                       <span class="bar"></span>
                       <label>Email</label>
                     </div>
+
+                    <div class="form-group" style="margin-top:40px !important;">
+                      Pilih Kelas Siswa
+                      <select name="kelasSiswa" id="kelasSiswa" class="form-control" required>
+                        <?php
+                        $kelas = $this->M_kelas->getNamaKelas();
+                        echo '<option value="">Pilih Kelas</option>';
+                        foreach ($kelas as $kelass) {
+                          echo '<option value="' . $kelass->id_kelas . '"  name="id_kelas">' . $kelass->kelas . '</option>';
+                        }
+                        ?>
+                      </select>
+                    </div>
                   </div>
 
                   <div class="col-md-6">
@@ -64,26 +77,13 @@
                       <label>Nomor Hp</label>
                     </div>
 
-                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                      Kelas
-
-                      <select name="id_kelas" id="kelas">
-                        <option value="">Pilih</option>
-
+                    <div class="form-group" style="margin-top:40px !important;">
+                      Pilih Siswa
+                      <select name="siswa" id="siswa" class="siswa form-control" required>
                         <?php
-                        $kelas = $this->M_kelas->getAllKelas();
-                        foreach ($kelas as $data) { // Lakukan looping pada variabel siswa dari controller
-                          echo "<option value='" . $data->id_kelas . "'>" . $data->nama . "</option>";
-                        }
+                        echo '<option value="">Pilih Siswa</option>';
                         ?>
-                      </select>
 
-                    </div>
-
-                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                      Siswa
-                      <select name="siswa" id="siswa">
-                        <option value="">Pilih</option>
                       </select>
                     </div>
 

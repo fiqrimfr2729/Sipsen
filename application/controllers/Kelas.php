@@ -22,6 +22,8 @@ class Kelas extends CI_Controller
 		$this->load->view('admin/kelas/index', $data);
 	}
 
+
+
 	function edit()
 	{
 		$id_kelas = $this->input->post('id_kelas');

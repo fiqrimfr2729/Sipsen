@@ -86,6 +86,14 @@ class M_kelas extends CI_Model
       return $data;
     }
 
+    public function getKelasByID($id_kelas){
+      $kelas = $this->db->select('tingkat, nama, singkatan')->where('id_kelas', $id_kelas)
+                ->from('tb_kelas')
+                ->join('tb_jurusan', 'tb_kelas.id_jurusan = tb_jurusan.id_jurusan')
+                ->get()->row();
+      return $kelas;
+    }
+
     public function getNamaKelas(){
       $this->db->select('id_kelas, tingkat, nama, singkatan');
       $this->db->from('tb_kelas');
