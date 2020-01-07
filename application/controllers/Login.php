@@ -19,12 +19,13 @@ class Login extends CI_Controller
 		$this->load->view('admin/v_login', $data);
 	}
 
-	public function password_check($str){
-	   if (preg_match('#[0-9]#', $str) && preg_match('#[a-zA-Z]#', $str)) {
-	     return TRUE;
-	   }
-	   return FALSE;
- 	}
+	public function password_check($str)
+	{
+		if (preg_match('#[0-9]#', $str) && preg_match('#[a-zA-Z]#', $str)) {
+			return TRUE;
+		}
+		return FALSE;
+	}
 
 	public function aksilogin()
 	{

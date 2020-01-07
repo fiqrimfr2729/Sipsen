@@ -2,6 +2,7 @@
   <div class="panel">
     <div class="panel-heading">
       <h3> Semua Kelas</h3>
+      <?= form_error('NIS', '<small class="text-danger pl-3">', '</small>'); ?>
     </div>
     <div class="form-group" style="margin-top:10px; margin-left:10px;">
       <a class="btn btn-raised btn-success" href="<?php echo base_url(''); ?>siswa/form"><i class="fas fa-plus"></i> Tambah data</a>
