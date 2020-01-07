@@ -16,7 +16,7 @@
               <th>NIS</th>
               <th>Kelas</th>
               <th width="10%">ID FP</th>
-              <th width="25%"> </th>
+              <th width="25%">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -151,7 +151,7 @@
               <label for="NISN">NISN : <input name="NISN" value="<?php echo $siswas->NISN; ?>" pattern="[0-9]+" title="Hannya Menggunakan Angka" class="form-control" type="text" placeholder="" required></label>
             </div>
             <div class="form-group">
-              <label for="NAMA">Nama : <input name="nama" value="<?php echo $siswas->nama_siswa; ?>" pattern="[A-Za-z]" title="Hannya Menggunakan Huruf" class="form-control" type="text" placeholder="" required></label>
+              <label for="NAMA">Nama : <input name="nama" value="<?php echo $siswas->nama_siswa; ?>" pattern="[a-zA-Z\s]+" title="Hannya Menggunakan Huruf" class="form-control" type="text" placeholder="" required></label>
             </div>
             <div class="form-group form-animate-text" style="margin-top:40px !important;">
               Kelas
@@ -240,7 +240,7 @@
 
   <!-- MODAL RESET PASSWORD -->
 
-  <div class="modal fade" id="modalResetPWD<?php echo $siswas->NIS ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+  <div class="modal fade" id="modalResetPWDXII<?php echo $siswas->NIS ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

@@ -16,7 +16,7 @@
             <th>NIS</th>
             <th>Kelas</th>
             <th width="10%">ID FP</th>
-            <th width="25%"> </th>
+            <th width="25%">Action</th>
           </thead>
           <tbody>
             <?php $i = 1;
@@ -148,7 +148,7 @@
               <label for="NISN">NISN : <input name="NISN" value="<?php echo $siswas->NISN; ?>" pattern="[0-9]+" title="Hannya Menggunakan Angka" class="form-control" type="text" placeholder="" required></label>
             </div>
             <div class="form-group">
-              <label for="NAMA">Nama : <input name="nama" value="<?php echo $siswas->nama_siswa; ?>" pattern="[A-Za-z]+" title="Hannya Menggunakan Huruf" class="form-control" type="text" placeholder="" required></label>
+              <label for="NAMA">Nama : <input name="nama" value="<?php echo $siswas->nama_siswa; ?>" pattern="[a-zA-Z\s]+" title="Hannya Menggunakan Huruf" class="form-control" type="text" placeholder="" required></label>
             </div>
             <div class="form-group form-animate-text" style="margin-top:40px !important;">
               Kelas

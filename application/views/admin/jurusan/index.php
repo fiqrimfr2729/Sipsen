@@ -91,7 +91,7 @@
 
   <?php foreach ($jurusan as $jurusans) : ?>
 
-    <!-- Modal Tambah Jurusan -->
+    <!-- Modal Edit Jurusan -->
     <div class="modal fade" id="modalFormJurusan<?php echo $jurusans->id_jurusan; ?>" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-labelledby="largeModal" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">

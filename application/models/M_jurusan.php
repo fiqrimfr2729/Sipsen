@@ -8,7 +8,7 @@ class M_jurusan extends CI_Model
     {
         $jurusan = $this->db->get($this->_table)->result();
         foreach ($jurusan as $value) {
-          $value->kelas = $this->db->where('id_jurusan', $value->id_jurusan)->from('tb_kelas')->get()->num_rows();
+            $value->kelas = $this->db->where('id_jurusan', $value->id_jurusan)->from('tb_kelas')->get()->num_rows();
         }
         return $jurusan;
     }

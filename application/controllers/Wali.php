@@ -48,6 +48,48 @@ class Wali extends CI_Controller
 		redirect('wali');
 	}
 
+	public function resetPWD()
+	{
+		$id_wali = $this->input->post('id_wali');
+		$password = "Wali123";
+		$passwordx = password_hash($password, PASSWORD_DEFAULT);
+		$this->WaliModel->resetPeWD($id_wali, $passwordx);
+		redirect('wali');
+	}
+
+	public function delete($id_wali = null)
+	{
+		$this->load->library('form_validation');
+		$config = array(
+			array(
+				'field' => 'id_wali',
+				'label' => 'id_wali',
+				'rules' => 'is_unique[tb_siswa.id_wali]',
+				'errors' => [
+					'is_unique' => 'tidak bisa menghapus wali karena id_wali masih digunakan'
+				]
+			)
+		);
+		$id_wali = $this->input->post('id_wali');
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run() == false) {
+			$data['menu'] = 'wali';
+			$this->session->set_flashdata(
+				'message',
+				'<div class="alert alert-danger">
+				<h4>Gagal</h4>
+				<p>tidak bisa menghapus wali karena id_wali masih digunakan pada tabel siswa </p>
+			</div>'
+			);
+			$this->load->view('admin/wali/index', $data);
+		} else {
+			$this->WaliModel->delete($id_wali);
+			redirect('wali');
+		}
+
+		redirect('wali');
+	}
+
 	public function listSiswa()
 	{
 		// Ambil data ID kelas yang dikirim via ajax post

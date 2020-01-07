@@ -116,7 +116,8 @@ class Siswa extends CI_Controller
 		redirect('siswa');
 	}
 
-	public function getSiswaByKelas(){
+	public function getSiswaByKelas()
+	{
 		$id_kelas = $this->input->post('id_kelas');
 		//$id_kelas = '1';
 		$siswa = $this->SiswaModel->getSiswaNonWali($id_kelas);

@@ -26,6 +26,9 @@
           </div>
         </div>
       </div>
+      <div id="notifications">
+        <?php echo $this->session->flashdata('message'); ?>
+      </div>
       <div class="col-md-12 top-20 padding-20">
         <div class="col-md-12">
           <div class="panel">
@@ -62,7 +65,7 @@
                           <a data-toggle="modal" data-target="#modalFormDetail<?php echo $walii->id_wali ?>" class=" btn ripple-infinite btn-info" data-placement="top" title="Detail"><span class="fas fa-list"></span></a>
                           <a data-toggle="modal" data-target="#modalFormEdit<?php echo $walii->id_wali ?>" class=" btn  ripple-infinite btn-primary" data-placement="top" title="Ubah"><span class="fas fa-edit"></span></a>
                           <a data-toggle="modal" data-target="#modalResetPWD<?php echo $walii->id_wali ?>" class=" btn  ripple-infinite btn-info" data-placement="top" title="Reset Password"><span class="fas fa-sync"></span></a>
-                          <a data-toggle="modal" data-target="#modalHapusSiswa<?php echo $walii->id_wali ?>" class=" btn  ripple-infinite btn-danger" data-placement="top" title="Hapus"><span class="fas fa-trash"></span></a>
+                          <a data-toggle="modal" data-target="#modalHapusWali<?php echo $walii->id_wali ?>" class=" btn  ripple-infinite btn-danger" data-placement="top" title="Hapus"><span class="fas fa-trash"></span></a>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -148,6 +151,54 @@
           </div>
         </div>
       </div>
+
+      <!-- MODAL RESET PASSWORD -->
+
+      <div class="modal fade" id="modalResetPWD<?php echo $walii->id_wali ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+              <h3 class="modal-title" id="myModalLabel">Reset Password Wali</h3>
+            </div>
+            <form class="form-horizontal" method="post" action="<?php echo base_url() . 'wali/resetPWD' ?>">
+              <div class="modal-body">
+                <p>Anda yakin mau mereset password Wali yang bernama <b><?php echo $walii->nama; ?> ?</b></p>
+              </div>
+              <div class="modal-footer">
+                <input type="hidden" name="id_wali" value="<?php echo $walii->id_wali; ?>">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                <button class="btn btn-danger">Reset</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL HAPUS DATA -->
+
+      <div class="modal fade" id="modalHapusWali<?php echo $walii->id_wali ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+              <h3 class="modal-title" id="myModalLabel">Hapus Data Wali</h3>
+            </div>
+            <form class="form-horizontal" method="post" action="<?php echo base_url() . 'wali/delete' ?>">
+              <div class="modal-body">
+                <p>Anda yakin mau menghapus data Wali yang bernama <b><?php echo $walii->nama; ?> ?</b></p>
+              </div>
+              <div class="modal-footer">
+                <input type="hidden" name="id_wali" value="<?php echo $walii->id_wali; ?>">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                <button class="btn btn-danger">Hapus</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
     <?php endforeach; ?>
 
     <!-- end: content -->

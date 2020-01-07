@@ -95,10 +95,64 @@
   <!-- end: Javascript -->
 
 
-  <!-- MODAL HAPUS DATA -->
 
   <?php foreach ($kelas as $kelass) : ?>
 
+    <!-- MODAL TAMBAH DATA -->
+    <div class="modal fade" id="modalAddFormKelas" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-labelledby="largeModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="myModalLabel">Tambah Data Kelas</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="<?php echo base_url('') ?>kelas/addKelas" method="post">
+              <div class="form-group">
+                <label for="Jurusan">Jurusan</label>
+
+                <select name="id_jurusan" id="#" class="form-control" required>
+                  <?php
+
+                  $jurusan = $this->M_jurusan->getAll();
+                  echo '<option value="">PILIH Jurusan</option>';
+                  foreach ($jurusan as $jurusans) {
+                    echo '<option value="' . $jurusans->id_jurusan . '"  name="id_kelas" placeholder="' . $jurusans->id_jurusan . '">' . $jurusans->nama_jurusan . '</option>';
+                  }
+                  ?>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="Tingkat">Tingkat</label>
+                <span id="pesan" class="error"></span></p>
+                <input type="text" class="form-control" id="tingkat" name="tingkat" placeholder="Masukkan Nama Tingkat" required />
+              </div>
+
+              <div class="form-group">
+                <label for="Nama">Nama</label>
+                <span id="pesan" class="error"></span></p>
+                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama Kelas" required />
+              </div>
+
+              <div class="form-group">
+                <label for="Nama">Kode Alat</label>
+                <span id="pesan" class="error"></span></p>
+                <input type="text" class="form-control" id="kd_alat" name="kd_alat" placeholder="Masukkan Kode Alat" required />
+              </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-primary">Masukan</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL HAPUS DATA -->
     <div class="modal fade" id="modalHapusKelas<?php echo $kelass->id_kelas; ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -119,11 +173,6 @@
         </div>
       </div>
     </div>
-  <?php endforeach; ?>
-
-
-
-  <?php foreach ($kelas as $kelass) : ?>
 
     <!-- MODAL EDIT -->
     <div class="modal fade" id="modalEditKelas<?php echo $kelass->id_kelas; ?>" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-labelledby="largeModal" aria-hidden="true">

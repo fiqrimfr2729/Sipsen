@@ -16,7 +16,7 @@
             <th>NIS</th>
             <th>Kelas</th>
             <th width="10%">ID FP</th>
-            <th width="25%"> </th>
+            <th width="25%">Action</th>
           </thead>
           <tbody>
             <?php $i = 1;
@@ -148,15 +148,15 @@
               <label for="NIS">NIS : <input name="NIS" value="<?php echo $siswas->NIS; ?>" class="form-control" type="text" placeholder="" readonly></label>
             </div>
             <div class="form-group">
-              <label for="NISN">NISN : <input name="NISN" value="<?php echo $siswas->NISN; ?>" class="form-control" type="text" placeholder=""></label>
+              <label for="NISN">NISN : <input name="NISN" value="<?php echo $siswas->NISN; ?>" pattern="[0-9]+" title="Hannya Menggunakan Angka" class="form-control" type="text" placeholder="" required></label>
             </div>
             <div class="form-group">
-              <label for="nama">NAMA LENGKAP : <input name="nama" value="<?php echo $siswas->nama_siswa; ?>" class="form-control" type="text" placeholder=""></label>
+              <label for="NAMA">Nama : <input name="nama" value="<?php echo $siswas->nama_siswa; ?>" pattern="[a-zA-Z\s]+" title="Hannya Menggunakan Huruf" class="form-control" type="text" placeholder="" required></label>
             </div>
             <div class="form-group form-animate-text" style="margin-top:40px !important;">
               Kelas
 
-              <select name="id_kelas" id="#" class="form-control">
+              <select name="id_kelas" id="#" class="form-control" required>
                 <?php
 
                 $kelas = $this->M_kelas->getNamaKelas();
@@ -182,12 +182,12 @@
 
             <div class="form-group">
               <label for="tgl_lahir">Tanggal Lahir :
-                <input type="date" id="tgl_lahir" class="form-text form-control" placeholder="<?php echo $siswas->tgl_lahir ?>" value="<?php echo $siswas->tgl_lahir ?>" aria-describedby="basic-addon2" name="tgl_lahir">
+                <input type="date" id="tgl_lahir" class="form-text form-control" placeholder="<?php echo $siswas->tgl_lahir ?>" value="<?php echo $siswas->tgl_lahir ?>" aria-describedby="basic-addon2" name="tgl_lahir" required>
             </div>
 
             <div class="form-group">
               <label>Nomor Hp :
-                <input type="text" class="form-text mask-phone form-control" id="" name="no_hp" value="<?php echo $siswas->no_hp ?>" required>
+                <input type="text" class="form-text mask-phone form-control" id="" pattern="[0-9]+" title="Hannya Menggunakan Angka" name="no_hp" value="<?php echo $siswas->no_hp ?>" required>
                 <span class="bar"></span>
               </label>
             </div>
@@ -222,7 +222,7 @@
 
             <div class="form-group">
               <label>ID FP
-                <input type="text" class="form-text" id="" value="<?php echo $siswas->id_fp ?>" name="id_fp" required>
+                <input type="text" class="form-text" id="" value="<?php echo $siswas->id_fp ?>" pattern="[0-9]+" title="Hannya Menggunakan Angka" name="id_fp" required>
                 <span class="bar"></span>
               </label>
             </div>
@@ -234,6 +234,29 @@
             </div>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL RESET PASSWORD -->
+
+  <div class="modal fade" id="modalResetPWDX<?php echo $siswas->NIS ?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+          <h3 class="modal-title" id="myModalLabel">Reset Password Guru</h3>
+        </div>
+        <form class="form-horizontal" method="post" action="<?php echo base_url() . 'siswa/resetPWD' ?>">
+          <div class="modal-body">
+            <p>Anda yakin mau mereset password Siswa <b><?php echo $siswas->nama_siswa; ?> ?</b></p>
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="NIS" value="<?php echo $siswas->NIS; ?>">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+            <button class="btn btn-danger">Reset</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
