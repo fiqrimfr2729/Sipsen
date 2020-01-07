@@ -19,9 +19,9 @@
       <div class="panel box-shadow-none content-header">
         <div class="panel-body">
           <div class="col-md-12">
-            <h3 class="animated fadeInLeft">Form Siswa</h3>
+            <h3 class="animated fadeInLeft">Form Guru</h3>
             <p class="animated fadeInDown">
-              Dashboard <span class="fa-angle-right fa"></span> Siswa <span class="fa-angle-right fa"></span> Form Siswa
+              Dashboard <span class="fa-angle-right fa"></span> Guru <span class="fa-angle-right fa"></span> Form Guru
             </p>
           </div>
         </div>
@@ -30,7 +30,7 @@
         <div class="col-md-12">
           <div class="col-md-12 panel">
             <div class="panel-heading">
-              <h4>Tambah Data Siswa</h4>
+              <h4>Tambah Data Guru</h4>
             </div>
             <div class="col-md-12 panel-body" style="padding-bottom:30px;">
               <div class="col-md-12">

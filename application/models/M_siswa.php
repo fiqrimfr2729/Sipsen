@@ -29,12 +29,12 @@ class M_siswa extends CI_Model
         return $result;
     }
 
-    public function simpan($NIS, $NISN, $nama, $jk, $id_kelas, $tgl_lahir, $no_hp, $email, $alamat, $nama_ayah, $nama_ibu, $id_fp, $password)
+    public function simpan($NIS, $NISN, $nama_siswa, $jk, $id_kelas, $tgl_lahir, $no_hp, $email, $alamat, $nama_ayah, $nama_ibu, $id_fp, $password)
     {
         $data = array(
             'NIS' => $NIS,
             'NISN' => $NISN,
-            'nama_siswa' => $nama,
+            'nama_siswa' => $nama_siswa,
             'jk' => $jk,
             'id_kelas' => $id_kelas,
             'tgl_lahir' => $tgl_lahir,
@@ -67,7 +67,6 @@ class M_siswa extends CI_Model
         $this->db->set('alamat', $alamat);
         $this->db->set('nama_ayah', $nama_ayah);
         $this->db->set('nama_ibu', $nama_ibu);
-
         $this->db->set('id_fp', $id_fp);
         $this->db->where('NIS', $NIS);
         $this->db->update('tb_siswa');

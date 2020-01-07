@@ -11,8 +11,12 @@ $route['/izin'] = 'izin';
 $route['/migration'] = 'migration';
 $route['Login/aksi_login'] = 'Login/aksi_login';
 $route['tambahLibur'] = 'Welcome/tambahLibur';
+
 $route['getSemester'] = 'presensi/getSemester';
 $route['getBulan'] = 'presensi/getBulan';
+
+
+$route['/siswa/form'] = 'siswa/addSiswa';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -38,7 +38,7 @@
                   <div class="col-md-6">
 
                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
-                      <input type="text" class="form-text" id="validate_firstname" name="nama" required="">
+                      <input type="text" class="form-text" id="validate_firstname" name="nama_siswa" required="">
                       <span class="bar"></span>
                       <label>Nama Lengkap</label>
                     </div>
@@ -47,6 +47,9 @@
                       <input type="text" class="form-text mask-number" id="validate_nisn" name="NISN" required>
                       <span class="bar"></span>
                       <label>NISN</label>
+                      <?php if (form_error('NISN')) : ?>
+                        <?= form_error('NISN', '<small class="text-danger">', '</small>') ?>
+                      <?php endif; ?>
                     </div>
 
                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
@@ -76,6 +79,12 @@
                         ?>
                       </select>
                     </div>
+
+                    <div class="form-group form-animate-text" style="margin-top:40px !important;">
+                      <input type="text" class="form-text" id="" name="id_fp" required>
+                      <span class="bar"></span>
+                      <label>ID Fingerprint</label>
+                    </div>
                   </div>
 
                   <div class="col-md-6">
@@ -83,6 +92,9 @@
                       <input type="text" class="form-text mask-number" id="validate_nis" name="NIS" required>
                       <span class="bar"></span>
                       <label>NIS</label>
+                      <?php if (form_error('NIS')) : ?>
+                        <?= form_error('NIS', '<small class="text-danger">', '</small>') ?>
+                      <?php endif; ?>
                     </div>
 
                     <div class="form-group form-animate-text" style="margin-top:40px !important;">
@@ -144,6 +156,15 @@
   <!-- start: Javascript -->
   <?php $this->load->view("admin/_partials/js.php") ?>
   <!-- end: Javascript -->
+  <script>
+    // assumes you're using jQuery
+    $(document).ready(function() {
+      $('.confirm-div').hide();
+      <?php if ($this->session->flashdata('msg')) { ?>
+        $('.confirm-div').html('<?php echo $this->session->flashdata('msg'); ?>').show();
+      <?php } ?>
+    });
+  </script>
 </body>
 
 </html>
